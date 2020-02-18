@@ -16,8 +16,8 @@
       [plugins]="calendarPlugins"
       [weekends]="calendarWeekends"
       [events]="calendarEvents"
-      (dateClick)="dateClick($event)"
-      (eventClick)="openDialogEvent($event)"
+      (dateClick)="newEvent($event)"
+      (eventClick)="clickEvent($event)"
       deepChangeDetection="true"
       
       ></full-calendar>
