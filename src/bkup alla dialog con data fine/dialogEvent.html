@@ -20,6 +20,12 @@
 <div style="text-align: center; margin-top: 20px; ">
     <input [id] = "data.id" hidden>
 
+    <!-- <mat-form-field>
+        <mat-label>Data di Inizio</mat-label>
+        <input matInput [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field> -->
 
     <div style="text-align: center; margin: auto; ">
         <table align="center" style="border-spacing: 50px 0;">
@@ -28,9 +34,7 @@
                     <td>
                         <mat-form-field>
                             <mat-label>Data di Inizio</mat-label>
-                            <input [max]="data.end" matInput [matDatepicker]="picker" [(ngModel)] = "data.start" >
-                            <mat-datepicker-toggle matSuffix [for]="picker" style="outline: none"></mat-datepicker-toggle>
-                            <mat-datepicker #picker ></mat-datepicker>
+                            <input matInput [(ngModel)] = "data.start">
                         </mat-form-field>
                     </td>
                     <td style="width: 20px">
@@ -41,7 +45,7 @@
                             <mat-label>Alle Ore</mat-label>
                             <select matNativeControl id="dalle" [disabled]="data.allDay" [(ngModel)]="data.startTime">
                                 <option value="-" [selected]="data.allDay">-</option>
-                                <option *ngFor="let time of timesArray" ng-options="disable when data.end==data.start" [value]="time.timeString">{{time.timeToShow}}</option>
+                                <option *ngFor="let time of timesArray" [value]="time.timeString">{{time.timeToShow}}</option>
                             </select>
                         </mat-form-field>
                     </td>
@@ -50,9 +54,7 @@
                     <td>
                         <mat-form-field>
                             <mat-label>Data di Fine</mat-label>
-                            <input [min]="data.start" matInput [matDatepicker]="picker2" [(ngModel)] = "data.end" #MaxDataFine>
-                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                            <mat-datepicker #picker2></mat-datepicker>
+                            <input matInput [(ngModel)] = "data.end">
                         </mat-form-field>
                     </td>
                     <td>
@@ -66,17 +68,6 @@
                             <option *ngFor="let time of timesArray" [value]="time.timeString">{{time.timeToShow}}</option>
                             </select>
                         </mat-form-field>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-
-                    </td>
-                    <td>
-
-                    </td>
-                    <td>
-
                     </td>
                 </tr>
             </tbody>

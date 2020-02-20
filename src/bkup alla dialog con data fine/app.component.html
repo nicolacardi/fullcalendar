@@ -5,7 +5,7 @@
 
 </div>
 <div class="container text-center">
-    <full-calendar
+    <full-calendar #calendar
       defaultView="dayGridMonth"
       [editable]="true"
       [header]="{
@@ -14,11 +14,14 @@
         right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
       }"
       [plugins]="calendarPlugins"
+      [locale] = "it"
       [weekends]="calendarWeekends"
       [events]="calendarEvents"
-      (dateClick)="dateClick($event)"
-      (eventClick)="openDialogEvent($event)"
+      (dateClick)="newEvent($event)"
+      (eventClick)="clickEvent($event)"
       deepChangeDetection="true"
+      (eventDrop)="eventDrop($event)"
+      (eventDragStart) = "eventDragStart($event)"
       
       ></full-calendar>
 </div>

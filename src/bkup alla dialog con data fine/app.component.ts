@@ -6,8 +6,6 @@ import interactionPlugin from '@fullcalendar/interaction';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import it from '@fullcalendar/core/locales/it';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
-import { NgModule } from '@angular/core';
 import { Calendar } from '@fullcalendar/core';
 import { EventInput } from '@fullcalendar/core';
 import * as $ from 'jquery';
@@ -50,10 +48,9 @@ export interface ResultType {
 
 export class AppComponent implements OnInit, AfterViewInit {
   it = it;
-
-  
   //la seguente variabile definisce un array necessario per stabilire quali viste sono disponibili
   //viene pescata nell'html da [plugins]="calendarPlugins"
+
 
 
   public calendarPlugins = [dayGridPlugin, timeGridPlugin, listWeekPlugin, interactionPlugin];
@@ -151,8 +148,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     let start = new Date(data.dateStr);
     let endNum = start.getTime()+86400000;
     let end = new Date(endNum);
-    //console.log("start 1 "+start);
-    //console.log ("end 1 "+end);
+    console.log("start"+start);
+    console.log ("end"+end);
 
     let currentmaxid = 0;
     if (this.calendarEvents.length != 0) {
@@ -176,29 +173,25 @@ export class AppComponent implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-
       if (result!= undefined){
         result as ResultType;
 
         let start: Date;
         let end: Date;
         if (!result.allDay) {
-          
           let startTime = result.startTime;
           let hours = parseInt(startTime.substr(0,2));
           let min = parseInt(startTime.substr(3,2));
           let sec = parseInt(startTime.substr(4,2));
           result.start.setHours(hours, min, sec);
           start = result.start;
-
-          end =new Date(result.start);
+          let endCurrent=new Date(result.start);
           let endTime = result.endTime;
           hours = parseInt(endTime.substr(0,2));
           min = parseInt(endTime.substr(3,2));
           sec = parseInt(endTime.substr(4,2));
-          end.setHours(hours, min, sec);
-          //console.log("start 2 "+start);
-          //console.log("end 2 "+end);
+          endCurrent.setHours(hours, min, sec);
+          end = endCurrent;
         } else {
           let startCurrent = result.start;
           let hours = 0;
@@ -206,13 +199,7 @@ export class AppComponent implements OnInit, AfterViewInit {
           let sec = 0;
           startCurrent.setHours(hours, min, sec);
           start = startCurrent;
-
-          end=new Date(result.end);
-
-          //console.log("start 2 "+start);
-          //console.log("end 2 "+end);
-
-
+          end = null;
         }
 
 
@@ -257,8 +244,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     //estraggo dall'evento cliccato le altre proprietà da mostrare in Dialog
     let start = new Date(event.event.start);
     let end = new Date(event.event.end);
-    console.log("start 1 "+start);
-    console.log("end 1 "+end);
     let startTime ="-";
     let endTime = "-";
     if (!event.event.allDay) {
@@ -268,10 +253,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     let s_day = ('0' + start.getDate()).slice(-2)
     let s_month = ('0' + (start.getMonth()+1)).slice(-2)
     let s_shortdate = start.getFullYear()+"-"+s_month+"-"+s_day;
-
-    let e_day = ('0' + end.getDate()).slice(-2)
-    let e_month = ('0' + (end.getMonth()+1)).slice(-2)
-    let e_shortdate = end.getFullYear()+"-"+e_month+"-"+e_day;
 
     //usare una costante DialogRef consente istanziare la Dialog in modo da
     //'raccoglierne' la chiusura - inoltre con la seguente sintassi passo dei dati alla DialogEvent
@@ -285,7 +266,6 @@ export class AppComponent implements OnInit, AfterViewInit {
         color: colorcode,           //color: string
         allDay: event.event.allDay, //allDay: any (perchè non boolean?)
         start: start,               //start: Date
-        end: end,                   //end: Date
         startTime: startTime,       //startTime: string
         endTime: endTime,           //endTime: string
         showDel: true
@@ -317,6 +297,7 @@ export class AppComponent implements OnInit, AfterViewInit {
           result as ResultType;
           //ora devo modificare l'evento che ha id = result.id come da array result (result.title, result.color, ecc.)
           this.calendarEvents.find(x => x.id == result.id).title = result.title;
+
           this.calendarEvents.find(x => x.id == result.id).color = result.color;
 
           if (!result.allDay) {
@@ -326,8 +307,7 @@ export class AppComponent implements OnInit, AfterViewInit {
             let sec = parseInt(startTime.substr(4,2));
             result.start.setHours(hours, min, sec);
             this.calendarEvents.find(x => x.id == result.id).start = result.start;
-
-            let endCurrent=new Date(result.end);
+            let endCurrent=new Date(result.start);
             let endTime = result.endTime;
             hours = parseInt(endTime.substr(0,2));
             min = parseInt(endTime.substr(3,2));
@@ -341,7 +321,7 @@ export class AppComponent implements OnInit, AfterViewInit {
             let sec = 0;
             startCurrent.setHours(hours, min, sec);
             this.calendarEvents.find(x => x.id == result.id).start = startCurrent;
-            this.calendarEvents.find(x => x.id == result.id).end = result.end;
+            this.calendarEvents.find(x => x.id == result.id).end = null;
           }
           this.calendarEvents.find(x => x.id == result.id).allDay = result.allDay;
         
@@ -352,7 +332,17 @@ export class AppComponent implements OnInit, AfterViewInit {
 }
 
 
-
+//*************************************************************************************
+//********************************DIALOG DATA******************************************
+//separatamente si crea un altro @Component per la dialog
+@Component({
+  selector: 'dialogData',
+  templateUrl: 'dialogData.html',
+  styleUrls: ['./app.component.css']
+})
+export class DialogData {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+}
 
 
 
@@ -367,8 +357,6 @@ class timesArray {
   templateUrl: 'dialogEvent.html',
   styleUrls: ['./app.component.css']
 })
-
-
 
 export class DialogEvent{
 
@@ -423,3 +411,59 @@ export class DialogEvent{
   }
 }
 
+
+// import { Component, ViewChild } from '@angular/core';
+// import { FullCalendarComponent } from '@fullcalendar/angular';
+// import { EventInput } from '@fullcalendar/core';
+// import dayGridPlugin from '@fullcalendar/daygrid';
+// import timeGrigPlugin from '@fullcalendar/timegrid';
+// import interactionPlugin from '@fullcalendar/interaction'; // for dateClick
+
+// @Component({
+//   selector: 'app-root',
+//   templateUrl: './app.component.html',
+//   styleUrls: ['./app.component.scss']
+// })
+// export class AppComponent {
+
+//   @ViewChild('calendar') calendarComponent: FullCalendarComponent; // the #calendar in the template
+
+//   calendarVisible = true;
+//   calendarPlugins = [dayGridPlugin, timeGrigPlugin, interactionPlugin];
+//   calendarWeekends = true;
+//   calendarEvents: EventInput[] = [
+//     { title: 'Event Now', start: new Date() }
+//   ];
+
+//   toggleVisible() {
+//     this.calendarVisible = !this.calendarVisible;
+//   }
+
+//   toggleWeekends() {
+//     this.calendarWeekends = !this.calendarWeekends;
+//   }
+
+//   gotoPast() {
+//     let calendarApi = this.calendarComponent.getApi();
+//     calendarApi.gotoDate('2000-01-01'); // call a method on the Calendar object
+//   }
+
+//   handleDateClick(arg) {
+//     if (confirm('Would you like to add an event to ' + arg.dateStr + ' ?')) {
+//       this.calendarEvents = this.calendarEvents.concat({ // add new event data. must create new array
+//         title: 'New Event',
+//         start: arg.date,
+//         allDay: arg.allDay
+//       })
+//     }
+//   }
+
+// }
+
+
+
+
+//per estrarre la shortdate si può fare così
+    // let s_day = ('0' + start.getDate()).slice(-2)
+    // let s_month = ('0' + (start.getMonth()+1)).slice(-2)
+    // let s_shortdate = start.getFullYear()+"-"+s_month+"-"+s_day;
