@@ -67,6 +67,8 @@ export class AppComponent implements AfterViewInit {
     api.render();
   }
 
+
+  
   public calendarWeekends = true;
   //variabili pescate nell'html come opzioni di fullcalendar
   public calendarPlugins = [dayGridPlugin, timeGridPlugin, listWeekPlugin, interactionPlugin];
