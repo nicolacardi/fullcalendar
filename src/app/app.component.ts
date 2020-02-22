@@ -66,7 +66,7 @@ export class AppComponent implements AfterViewInit {
   getScreenSize(event?) {
         this.screenHeight = window.innerHeight;
         this.screenWidth = window.innerWidth;
-        console.log('orientationChanged');
+        alert('orientationChanged');
   }
 
   //ecco come assegnare il calendario (ha #calendar nell'html) alla variabile calendario
