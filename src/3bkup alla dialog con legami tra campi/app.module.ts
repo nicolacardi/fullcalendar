@@ -18,7 +18,7 @@ import { DialogEvent } from './app.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 
-
+import { DialogData } from './app.component';
 
 
 @NgModule({
