@@ -49,11 +49,24 @@ export class AppComponent implements AfterViewInit {
   //ecco come ottenere le dimensioni dello schermo, utili per rendere fullcalendar responsivo
   screenHeight: number;
   screenWidth: number;
+
+  buttonText = {
+      today:    'oggi',
+      month:    'm',
+      week:     's',
+      day:      'g',
+      list:     'lista'
+  }
+
+
+
   constructor(public dialog: MatDialog) {this.getScreenSize();}
   @HostListener('window:resize', ['$event'])
+
   getScreenSize(event?) {
         this.screenHeight = window.innerHeight;
         this.screenWidth = window.innerWidth;
+        console.log('orientationChanged');
   }
 
   //ecco come assegnare il calendario (ha #calendar nell'html) alla variabile calendario
@@ -64,11 +77,14 @@ export class AppComponent implements AfterViewInit {
   ngAfterViewInit(){
     const api = this.calendario.getApi();
     api.setOption('height', this.screenHeight);
+    api.setOption('themeSystem', 'bootstrap');
+    api.setOption('buttonText', this.buttonText);
+
     api.render();
   }
 
 
-  
+
   public calendarWeekends = true;
   //variabili pescate nell'html come opzioni di fullcalendar
   public calendarPlugins = [dayGridPlugin, timeGridPlugin, listWeekPlugin, interactionPlugin];
