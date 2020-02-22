@@ -66,7 +66,6 @@ export class AppComponent implements AfterViewInit {
   getScreenSize(event?) {
         this.screenHeight = window.innerHeight;
         this.screenWidth = window.innerWidth;
-        alert('orientationChanged');
   }
 
   //ecco come assegnare il calendario (ha #calendar nell'html) alla variabile calendario
@@ -76,6 +75,7 @@ export class AppComponent implements AfterViewInit {
   //ecco come settare le opzioni del calendario da qui
   ngAfterViewInit(){
     const api = this.calendario.getApi();
+    api.setOption('width', this.screenWidth);
     api.setOption('height', this.screenHeight);
     api.setOption('themeSystem', 'bootstrap');
     api.setOption('buttonText', this.buttonText);
