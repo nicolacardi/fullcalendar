@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject} from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, AfterViewInit} from '@angular/core';
 import dayGridPlugin  from '@fullcalendar/daygrid';
 import listWeekPlugin  from '@fullcalendar/list';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -8,6 +8,9 @@ import it from '@fullcalendar/core/locales/it';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { Calendar } from '@fullcalendar/core';
 import { FullCalendarComponent } from '@fullcalendar/angular';
+import { OptionsInput } from '@fullcalendar/core/types/input-types';
+import { HostListener } from "@angular/core"; //serve per ottenere l'altezza del device
+
 
 //creo un tipo di dato EventType
 export interface EventType {
@@ -29,6 +32,7 @@ var colours = {
   "palegreen":"#98fb98", "paleturquoise":"#afeeee", "palevioletred":"#d87093", "papayawhip":"#ffefd5", "peachpuff":"#ffdab9", "peru":"#cd853f", "pink":"#ffc0cb", "plum":"#dda0dd", "powderblue":"#b0e0e6", "purple":"#800080",  "rebeccapurple":"#663399", "red":"#ff0000", "rosybrown":"#bc8f8f", "royalblue":"#4169e1",  "saddlebrown":"#8b4513", "salmon":"#fa8072", "sandybrown":"#f4a460", "seagreen":"#2e8b57", "seashell":"#fff5ee", "sienna":"#a0522d", "silver":"#c0c0c0", "skyblue":"#87ceeb", "slateblue":"#6a5acd", "slategray":"#708090", "snow":"#fffafa", "springgreen":"#00ff7f", "steelblue":"#4682b4",   "tan":"#d2b48c", "teal":"#008080", "thistle":"#d8bfd8", "tomato":"#ff6347", "turquoise":"#40e0d0", "violet":"#ee82ee",   "wheat":"#f5deb3", "white":"#ffffff", "whitesmoke":"#f5f5f5", "yellow":"#ffff00", "yellowgreen":"#9acd32" 
   };
 
+ 
 
 @Component({
   selector: 'app-root',
@@ -36,14 +40,37 @@ var colours = {
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
+
+export class AppComponent implements AfterViewInit {
 
   //**************************************** 1. SETUP VARI****************************
   it = it; //questa indicazione è necessaria per far funzionare la lingua italiana (workaround di un bug)
 
+  //ecco come ottenere le dimensioni dello schermo, utili per rendere fullcalendar responsivo
+  screenHeight: number;
+  screenWidth: number;
+  constructor(public dialog: MatDialog) {this.getScreenSize();}
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?) {
+        this.screenHeight = window.innerHeight;
+        this.screenWidth = window.innerWidth;
+  }
+
+  //ecco come assegnare il calendario (ha #calendar nell'html) alla variabile calendario
+  @ViewChild('calendar') calendario: FullCalendarComponent;
+  options: OptionsInput; //definisco una variabile options di tipo OptionsInput
+
+  //ecco come settare le opzioni del calendario da qui
+  ngAfterViewInit(){
+    const api = this.calendario.getApi();
+    api.setOption('height', this.screenHeight);
+    api.render();
+  }
+
+  public calendarWeekends = true;
   //variabili pescate nell'html come opzioni di fullcalendar
   public calendarPlugins = [dayGridPlugin, timeGridPlugin, listWeekPlugin, interactionPlugin];
-  public calendarWeekends = true;
+  
 
   //eventi base inseriti nel calendario
   //creo due variabili di tipo data per poter implicitamente definire come date i campi start ed end
@@ -72,7 +99,7 @@ export class AppComponent {
   //*********************************************************************************
   
   //definizione della dialog di tipo MatDialog
-  constructor(public dialog: MatDialog) {}
+
   //***************************************1. FINE SETUP VARI **********************************
 
 
@@ -421,11 +448,12 @@ export class DialogEvent{
   //ViewChild va importata da @angular/core
   //la ViewChild al momento non è utilizzata ma serve per accedere all'oggetto calendario che
   //nell'html deve chiamarsi #calendar.
+   //@ViewChild('calendar') calendarComponent: FullCalendarComponent; //sta dentro export class
   //poi posso allora usare
   //let calendario = this.calendarComponent.getApi(); 
   //calendario.refetchEvents();
   //calendario.rerenderEvents(); //faccio il re-render ma il bug persiste
-  //@ViewChild('calendar') calendarComponent: FullCalendarComponent;
+ 
 
 
 
