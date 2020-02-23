@@ -1,18 +1,15 @@
 
 mat-sidenav-container {
     height: 100%;
-    
 }
 
 mat-sidenav, mat-sidenav-content {
     padding: 16px;
-    
 }
 
 mat-sidenav {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.7);
     width: 300px;
-
 }
 
 mat-grid-tile {
@@ -25,7 +22,6 @@ mat-form-field {
 
 mat-list-item {
     color: white !important;
-    
 }
 
 mat-line {
