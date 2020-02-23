@@ -55,15 +55,19 @@ export class AppComponent implements AfterViewInit {
       month:    'm',
       week:     's',
       day:      'g',
-      list:     'lista'
+      list:     'li'
   }
   header = {
-    left:   'title',
-    center: 'prev, next today'
-
+    left: 'prev,next today',
+    center: 'title',
+    right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
   }
 
-
+  titleFormat =  [
+  { year: 'numeric', month: 'long' },                // like 'September 2009', for month view
+  { year: 'numeric', month: 'short', day: 'numeric' }, // like 'Sep 13 2009', for week views
+  { year: 'numeric', month: 'long', day: 'numeric' }  // like 'September 8 2009', for day views
+  ];
 
   constructor(public dialog: MatDialog) {this.getScreenSize();}
   @HostListener('window:resize', ['$event'])
@@ -86,6 +90,8 @@ export class AppComponent implements AfterViewInit {
     api.setOption('themeSystem', 'bootstrap');
 
     api.setOption('buttonText', this.buttonText);
+
+    //api.setOption('titleFormat', this.titleFormat);
 
     api.setOption('header', this.header);
     

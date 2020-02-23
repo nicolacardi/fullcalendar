@@ -3,14 +3,48 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-/* .fc-prev-button {
-    width: 30px;
-    padding: 0px;
+
+
+.fc-prev-button {
+
+
 
 }
 
 .fc-next-button {
-    width: 30px;
-    padding: 0px;
 
-} */
+
+
+}
+
+.fc-dayGridMonth-button {
+    background: url('/assets/month.svg');
+    background-repeat: no-repeat;
+    color:transparent !important;
+    width: 35px;
+}
+
+.fc-timeGridWeek-button {
+    background: url('/assets/week.svg');
+    background-repeat: no-repeat;
+    color:transparent !important;
+    width: 35px;
+}
+
+.fc-timeGridDay-button {
+    background: url('/assets/day.svg');
+    background-repeat: no-repeat;
+    color:transparent !important;
+    width: 35px;
+}
+
+.fc-listWeek-button {
+    background: url('/assets/list.svg');
+    background-repeat: no-repeat;
+    color:transparent !important;
+    width: 35px;
+}
+
+.fc-button-primary {
+    background-color: #2C3E50;
+}
