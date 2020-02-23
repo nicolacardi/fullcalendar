@@ -3,7 +3,7 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 768px) {
 
 
 
@@ -66,5 +66,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     .fc-center {
         font-size: 10px;
     }
+    .mat-h2, .mat-title, .mat-typography h2 {
+        
+        font-size: 12px !important;
+    }
+}
 
+.mat-h2, .mat-title, .mat-typography h2 {
+    margin: 0px !important;
+    font-family: 'Titillium Web' !important;
 }
