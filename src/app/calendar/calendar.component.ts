@@ -99,7 +99,7 @@ export class CalendarComponent implements AfterViewInit {
   ngAfterViewInit(){
     const api = this.calendario.getApi();
 
-    api.setOption('height', (this.screenHeight - 10));
+    api.setOption('height', (this.screenHeight - 35));
 
     api.setOption('themeSystem', 'bootstrap');
 
