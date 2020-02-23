@@ -60,6 +60,7 @@ export class AppComponent implements AfterViewInit {
 
 
 
+
   constructor(public dialog: MatDialog) {this.getScreenSize();}
   @HostListener('window:resize', ['$event'])
 
@@ -75,12 +76,17 @@ export class AppComponent implements AfterViewInit {
   //ecco come settare le opzioni del calendario da qui
   ngAfterViewInit(){
     const api = this.calendario.getApi();
-    api.setOption('width', this.screenWidth);
-    api.setOption('height', this.screenHeight);
-    api.setOption('themeSystem', 'bootstrap');
-    api.setOption('buttonText', this.buttonText);
 
+      api.setOption('height', (this.screenHeight - 10));
+
+    api.setOption('themeSystem', 'bootstrap');
+
+    api.setOption('buttonText', this.buttonText);
+    
     api.render();
+
+
+    
   }
 
 
