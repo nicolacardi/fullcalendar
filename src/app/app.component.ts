@@ -51,11 +51,11 @@ export class AppComponent implements AfterViewInit {
   screenWidth: number;
 
   buttonText = {
-      today:    'oggi',
+      today:    'o',
       month:    'm',
       week:     's',
       day:      'g',
-      list:     'li'
+      list:     'l'
   }
   header = {
     left: 'prev,next today',

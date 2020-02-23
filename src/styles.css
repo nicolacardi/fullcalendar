@@ -9,16 +9,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     width: 30px;
     height: 35px;
     padding: 0px;
-
-
 }
 
 .fc-next-button {
     width: 30px;
     height: 35px;
     padding: 0px;
-
-
 }
 
 .fc-dayGridMonth-button {
@@ -44,6 +40,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .fc-listWeek-button {
     background: url('/assets/list.svg');
+    background-repeat: no-repeat;
+    color:transparent !important;
+    width: 35px;
+}
+
+.fc-today-button {
+    background: url('/assets/today.svg');
     background-repeat: no-repeat;
     color:transparent !important;
     width: 35px;
