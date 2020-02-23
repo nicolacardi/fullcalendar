@@ -20,68 +20,51 @@
 <div style="text-align: center; margin-top: 20px; ">
     <input [id] = "data.id" hidden>
     <div style="text-align: center; margin: auto; ">
-        <div class="row">
-            <div class="col-md-6">
-                <mat-form-field appearance="outline" [style.width.px]=180>
-                    <mat-label>Data di Inizio</mat-label>
-                    <input [max]="data.end" matInput [matDatepicker]="picker" [(ngModel)] = "data.start" #DataInizio (dateChange)="onChangeDate( data.start, data.end, data.startTime)" required>
-                    <mat-datepicker-toggle matSuffix [for]="picker" style="outline: none"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-            </div>
-            <div class="col-md-6">
-                <mat-form-field appearance="outline" [style.width.px]=180>
-                    <mat-label>Alle Ore</mat-label>
-                    <select matNativeControl id="dalle" [disabled]="data.allDay" [(ngModel)]="data.startTime" #AlleOre>
-                        <!-- <option value="-" [selected]="data.allDay">-</option> -->
-                        <option *ngFor="let time of timesArray" [value]="time.timeString" [disabled]="((data.end).toLocaleDateString() === data.start.toLocaleDateString())&& (time.timeString>data.endTime)">{{time.timeToShow}}</option>
-                    </select>
-                
-                </mat-form-field>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <mat-form-field appearance="outline" [style.width.px]=180>
-                    <mat-label>Data di Fine</mat-label>
-                    <input [min]="data.start" matInput [matDatepicker]="picker2" [(ngModel)] = "data.end" #DataFine (dateChange)="onChangeDate( data.start, data.end, data.startTime)" required>
-                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                    <mat-datepicker #picker2></mat-datepicker>
-                </mat-form-field>
-            </div>
-            <div class="col-md-6" >
-                <mat-form-field appearance="outline" [style.width.px]=180>
-                    <mat-label>Alle Ore</mat-label>
-                    <select matNativeControl id="alle" [disabled]="data.allDay" [(ngModel)]="data.endTime">
-                    <!-- <option value="-" [selected]="data.allDay">-</option> -->
-                    <option *ngFor="let time of timesArray" [value]="time.timeString" [disabled]="((data.end).toLocaleDateString() === data.start.toLocaleDateString())&& (time.timeString<data.startTime)">{{time.timeToShow}}</option>
-                    </select>
-                </mat-form-field>
-            </div>
-        </div>
-
         <table align="center" style="border-spacing: 50px 0;">
             <tbody>
                 <tr>
                     <td>
-                        
+                        <mat-form-field>
+                            <mat-label>Data di Inizio ccc</mat-label>
+                            <input [max]="data.end" matInput [matDatepicker]="picker" [(ngModel)] = "data.start" #DataInizio (dateChange)="onChangeDate( data.start, data.end, data.startTime)" required>
+                            <mat-datepicker-toggle matSuffix [for]="picker" style="outline: none"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
                     </td>
                     <td style="width: 20px">
 
                     </td>
                     <td>
-
+                        <mat-form-field>
+                            <mat-label>Alle Ore</mat-label>
+                            <select matNativeControl id="dalle" [disabled]="data.allDay" [(ngModel)]="data.startTime" #AlleOre>
+                                <!-- <option value="-" [selected]="data.allDay">-</option> -->
+                                <option *ngFor="let time of timesArray" [value]="time.timeString" [disabled]="((data.end).toLocaleDateString() === data.start.toLocaleDateString())&& (time.timeString>data.endTime)">{{time.timeToShow}}</option>
+                            </select>
+                           
+                        </mat-form-field>
                     </td>
                 </tr>
                 <tr>
                     <td>
-
+                        <mat-form-field>
+                            <mat-label>Data di Fine</mat-label>
+                            <input [min]="data.start" matInput [matDatepicker]="picker2" [(ngModel)] = "data.end" #DataFine (dateChange)="onChangeDate( data.start, data.end, data.startTime)" required>
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
                     </td>
                     <td>
 
                     </td>
                     <td>
-
+                        <mat-form-field>
+                            <mat-label>Alle Ore</mat-label>
+                            <select matNativeControl id="alle" [disabled]="data.allDay" [(ngModel)]="data.endTime">
+                            <!-- <option value="-" [selected]="data.allDay">-</option> -->
+                            <option *ngFor="let time of timesArray" [value]="time.timeString" [disabled]="((data.end).toLocaleDateString() === data.start.toLocaleDateString())&& (time.timeString<data.startTime)">{{time.timeToShow}}</option>
+                            </select>
+                        </mat-form-field>
                     </td>
                 </tr>
 
