@@ -18,7 +18,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     }
 
     .fc-dayGridMonth-button {
-        background: url('/assets/month.svg');
+        background: url('./assets/month.svg');
         background-repeat: no-repeat;
         color:transparent !important;
         width: 30px;
@@ -26,7 +26,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     }
 
     .fc-timeGridWeek-button {
-        background: url('/assets/week.svg');
+        background: url('./assets/week.svg');
         background-repeat: no-repeat;
         color:transparent !important;
         width: 30px;
@@ -34,7 +34,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     }
 
     .fc-timeGridDay-button {
-        background: url('/assets/day.svg');
+        background: url('./assets/day.svg');
         background-repeat: no-repeat;
         color:transparent !important;
         width: 30px;
@@ -42,7 +42,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     }
 
     .fc-listWeek-button {
-        background: url('/assets/list.svg');
+        background: url('./assets/list.svg');
         background-repeat: no-repeat;
         color:transparent !important;
         width: 30px;
@@ -50,7 +50,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     }
 
     .fc-today-button {
-        background: url('/assets/today.svg');
+        background: url('./assets/today.svg');
         background-repeat: no-repeat;
         color:transparent !important;
         width: 30px;
