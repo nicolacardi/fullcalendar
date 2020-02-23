@@ -57,7 +57,11 @@ export class AppComponent implements AfterViewInit {
       day:      'g',
       list:     'lista'
   }
+  header = {
+    left:   'title',
+    center: 'prev, next today'
 
+  }
 
 
 
@@ -77,11 +81,13 @@ export class AppComponent implements AfterViewInit {
   ngAfterViewInit(){
     const api = this.calendario.getApi();
 
-      api.setOption('height', (this.screenHeight - 10));
+    api.setOption('height', (this.screenHeight - 10));
 
     api.setOption('themeSystem', 'bootstrap');
 
     api.setOption('buttonText', this.buttonText);
+
+    api.setOption('header', this.header);
     
     api.render();
 

@@ -3,14 +3,14 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-.fc-prev-button {
+/* .fc-prev-button {
     width: 30px;
     padding: 0px;
-    font-size: 10px;
+
 }
 
 .fc-next-button {
     width: 30px;
     padding: 0px;
-    font-size: 10px;
-}
+
+} */
