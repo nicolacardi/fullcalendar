@@ -58,8 +58,9 @@ export class AppComponent implements AfterViewInit {
       list:     'l'
   }
   header = {
-    left: 'prev,next today',
-    center: 'title',
+    left: 'title',
+    center: 'prev,next today',
+
     right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
   }
 

@@ -50,8 +50,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     background-repeat: no-repeat;
     color:transparent !important;
     width: 35px;
+    height: 35px;
 }
 
 .fc-button-primary {
     background-color: #2C3E50;
+}
+
+.fc-center {
+    font-size: 10px;
 }
