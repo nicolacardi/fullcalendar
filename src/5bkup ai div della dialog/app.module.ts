@@ -14,21 +14,17 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
-import { DialogEvent } from './calendar/calendar.component';
+import { DialogEvent } from './app.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { CalendarComponent } from './calendar/calendar.component';
-import { AssistenzaComponent } from './assistenza/assistenza.component';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatListModule } from '@angular/material/list';
+
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    DialogEvent,
-    CalendarComponent,
-    AssistenzaComponent
+    DialogEvent
   ],
   imports: [
     BrowserModule,
@@ -43,15 +39,12 @@ import { MatListModule } from '@angular/material/list';
     MatCheckboxModule,
     MatIconModule,
     MatDatepickerModule,
-    MatNativeDateModule,
-    MatSidenavModule,
-    MatListModule
+    MatNativeDateModule
   ],
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
-    DialogEvent,
-    AppComponent
+    DialogEvent
   ]
 })
 export class AppModule {

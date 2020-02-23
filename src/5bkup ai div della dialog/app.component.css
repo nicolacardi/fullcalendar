@@ -1,0 +1,15 @@
+* { font-family: 'Titillium Web', sans-serif;}
+
+.titolo{
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.material-icons{
+    font-family: 'Material Icons' !important;
+}
+
+#colorpicker option{
+    width:30px;   
+  }
+
