@@ -3,60 +3,68 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+@media screen and (max-width: 1000px) {
 
 
-.fc-prev-button {
-    width: 30px;
-    height: 35px;
-    padding: 0px;
-}
 
-.fc-next-button {
-    width: 30px;
-    height: 35px;
-    padding: 0px;
-}
+    .fc-prev-button {
+        width: 20px;
+        height: 20px;
+        padding: 0px;
+    }
 
-.fc-dayGridMonth-button {
-    background: url('/assets/month.svg');
-    background-repeat: no-repeat;
-    color:transparent !important;
-    width: 35px;
-}
+    .fc-next-button {
+        width: 20px;
+        height: 20px;
+        padding: 0px;
+    }
 
-.fc-timeGridWeek-button {
-    background: url('/assets/week.svg');
-    background-repeat: no-repeat;
-    color:transparent !important;
-    width: 35px;
-}
+    .fc-dayGridMonth-button {
+        background: url('/assets/month.svg');
+        background-repeat: no-repeat;
+        color:transparent !important;
+        width: 20px;
+        height: 20px;
+    }
 
-.fc-timeGridDay-button {
-    background: url('/assets/day.svg');
-    background-repeat: no-repeat;
-    color:transparent !important;
-    width: 35px;
-}
+    .fc-timeGridWeek-button {
+        background: url('/assets/week.svg');
+        background-repeat: no-repeat;
+        color:transparent !important;
+        width: 20px;
+        height: 20px;
+    }
 
-.fc-listWeek-button {
-    background: url('/assets/list.svg');
-    background-repeat: no-repeat;
-    color:transparent !important;
-    width: 35px;
-}
+    .fc-timeGridDay-button {
+        background: url('/assets/day.svg');
+        background-repeat: no-repeat;
+        color:transparent !important;
+        width: 20px;
+        height: 20px;
+    }
 
-.fc-today-button {
-    background: url('/assets/today.svg');
-    background-repeat: no-repeat;
-    color:transparent !important;
-    width: 35px;
-    height: 35px;
-}
+    .fc-listWeek-button {
+        background: url('/assets/list.svg');
+        background-repeat: no-repeat;
+        color:transparent !important;
+        width: 20px;
+        height: 20px;
+    }
 
-.fc-button-primary {
-    background-color: #2C3E50;
-}
+    .fc-today-button {
+        background: url('/assets/today.svg');
+        background-repeat: no-repeat;
+        color:transparent !important;
+        width: 20px;
+        height: 20px;
+    }
 
-.fc-center {
-    font-size: 10px;
+    .fc-button-primary {
+        background-color: #2C3E50;
+    }
+
+    .fc-center {
+        font-size: 10px;
+    }
+
 }
