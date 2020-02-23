@@ -8,14 +8,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
     .fc-prev-button {
-        width: 20px;
-        height: 20px;
+        width: 30px;
+        height: 30px;
         padding: 0px;
     }
 
     .fc-next-button {
-        width: 20px;
-        height: 20px;
+        width: 30px;
+        height: 30px;
         padding: 0px;
     }
 
@@ -23,40 +23,40 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
         background: url('/assets/month.svg');
         background-repeat: no-repeat;
         color:transparent !important;
-        width: 20px;
-        height: 20px;
+        width: 30px;
+        height: 30px;
     }
 
     .fc-timeGridWeek-button {
         background: url('/assets/week.svg');
         background-repeat: no-repeat;
         color:transparent !important;
-        width: 20px;
-        height: 20px;
+        width: 30px;
+        height: 30px;
     }
 
     .fc-timeGridDay-button {
         background: url('/assets/day.svg');
         background-repeat: no-repeat;
         color:transparent !important;
-        width: 20px;
-        height: 20px;
+        width: 30px;
+        height: 30px;
     }
 
     .fc-listWeek-button {
         background: url('/assets/list.svg');
         background-repeat: no-repeat;
         color:transparent !important;
-        width: 20px;
-        height: 20px;
+        width: 30px;
+        height: 30px;
     }
 
     .fc-today-button {
         background: url('/assets/today.svg');
         background-repeat: no-repeat;
         color:transparent !important;
-        width: 20px;
-        height: 20px;
+        width: 30px;
+        height: 30px;
     }
 
     .fc-button-primary {
@@ -68,7 +68,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     }
     .mat-h2, .mat-title, .mat-typography h2 {
         
-        font-size: 12px !important;
+        font-size: 14px !important;
     }
 }
 
