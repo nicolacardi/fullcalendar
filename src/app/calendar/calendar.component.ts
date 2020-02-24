@@ -449,9 +449,6 @@ export class CalendarComponent implements AfterViewInit {
 
 }
 
-
-
-
 class timesArray {
   constructor(public timeString: string, public timeToShow: string) { }
 }
