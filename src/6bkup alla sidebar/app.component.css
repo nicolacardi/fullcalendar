@@ -1,0 +1,39 @@
+
+mat-sidenav-container {
+    height: 100%;
+}
+
+mat-sidenav, mat-sidenav-content {
+    padding: 16px;
+}
+
+mat-sidenav {
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 300px;
+}
+
+mat-grid-tile {
+    background-color: rgb(250, 135, 202);
+}
+
+mat-form-field {
+    padding: 10px;
+}
+
+mat-list-item {
+    color: white !important;
+}
+
+mat-line {
+    font-family: 'Titillium Web' !important;
+}
+
+
+mat-radio-button {
+    padding: 10px;
+}
+
+mat-checkbox {
+    padding: 10px;
+}
+

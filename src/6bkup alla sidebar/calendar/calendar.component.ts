@@ -64,9 +64,6 @@ export class CalendarComponent implements AfterViewInit {
     right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
   }
 
-  defaultAllDayEventDuration = {
-    days: 1
-  }
   views = {
     month: {
         titleFormat: "YYYY MMMM",                  
@@ -106,8 +103,6 @@ export class CalendarComponent implements AfterViewInit {
     api.setOption('buttonText', this.buttonText);
     api.setOption('views', this.views);
     api.setOption('header', this.header);
-    api.setOption('defaultAllDayEventDuration', this.defaultAllDayEventDuration);
-    api.setOption('forceEventDuration', true);
     api.render();
 
   }
@@ -173,7 +168,7 @@ export class CalendarComponent implements AfterViewInit {
     //(ogni data spostata si ritroverà con end non nulla dopo il drag.)
     if (this.beforeDragEnd == null) {
       this.beforeDragEnd = new Date(this.beforeDragStart);
-      this.beforeDragEnd.setDate(this.beforeDragStart.getDate()); //####era +1
+      this.beforeDragEnd.setDate(this.beforeDragStart.getDate()+1); //####era +1
     }
     let startDate = new Date (event.event.start);
     let endDateNum : number;
@@ -184,10 +179,6 @@ export class CalendarComponent implements AfterViewInit {
     }
     //ritraduco in una data
     let endDate = new Date (endDateNum);
-
-
-
-
 
     //assegno start e endDate
     this.calendarEvents.find(x => x.id == event.event.id).start = startDate;
@@ -222,7 +213,7 @@ export class CalendarComponent implements AfterViewInit {
         color: colorcode,           //color: string
         allDay: true,  //allDay: any (perchè non boolean?)
         start: start,               //start: Date
-        end: start,                 //end: Date //###### provo end: start 
+        end: end,                 //end: Date //###### provare end: start oppure ngIf nascondere data quando fullday
         startTime: "-",       //startTime: string
         endTime: "-",           //endTime: string
         showDel: false
@@ -247,7 +238,7 @@ export class CalendarComponent implements AfterViewInit {
           result.start.setHours(hours, min, sec);
           start = result.start;
 
-          end =new Date(result.end);
+          end =new Date(result.start);
           let endTime = result.endTime;
           hours = parseInt(endTime.substr(0,2));
           min = parseInt(endTime.substr(3,2));
@@ -261,19 +252,6 @@ export class CalendarComponent implements AfterViewInit {
           startCurrent.setHours(hours, min, sec);
           start = startCurrent;
           end=new Date(result.end);
-          let delta = (end.getTime()-start.getTime())/86400000; 
-          //Fullcalendar imposta per una data FullDay la fine dell'evento alle 00:00:00 del giorno seguente
-          //questo non va bene perchè l'utente quando setta 
-          //fullDay = true start = 1/1/2000 e end = 2/1/2000 si aspetta che duri due giorni
-          //devo in qualche modo 'ingannare' fullcalendar
-          //dunque in questa routine pesco il delta in giorni che l'utente imposta
-          //ora trasformare il delta impostato dall'utente in delta che si aspetta fullcalendar
-          //cioè se l'utente mette 0 giorni di differenza 
-          //io devo impostare end a start + 1 giorno (così se lo aspetta fc)
-          let dateForFC = new Date(start);
-          dateForFC.setDate(dateForFC.getDate()+delta+1); //####
-          console.log ("dateForFC da salvare"+dateForFC);
-          end = dateForFC; //####### ecco la data per FullCalendar
         }
         this.calendarEvents = this.calendarEvents.concat([
           {id: (currentmaxid+1),
@@ -282,7 +260,7 @@ export class CalendarComponent implements AfterViewInit {
           color: result.color,
           allDay: result.allDay,
           start: start,
-          end: end //#####
+          end: end //###### provare end: start
         }
         ]);
       }
@@ -294,7 +272,6 @@ export class CalendarComponent implements AfterViewInit {
 
   //*******************************************4. CLICK EVENT ****************************************
   clickEvent(event) {
-    console.log(event);
     //metto in colorcode il codice colore dell'evento. Se descrittivo lo traduco in un codice.
     let colorcode = "#000000";
     if (event.event.backgroundColor.substring(0,1)!="#") {
@@ -313,20 +290,6 @@ export class CalendarComponent implements AfterViewInit {
     if (!event.event.allDay) {
       startTime = start.toLocaleTimeString('it-IT'); //estrae il Time da una data
       endTime = end.toLocaleTimeString('it-IT'); 
-    } else {
-      let delta = (end.getTime()-start.getTime())/86400000; 
-      //Fullcalendar imposta per una data FullDay la fine dell'evento alle 00:00:00 del giorno seguente
-      //questo non va bene perchè l'utente quando setta 
-      //fullDay = true start = 1/1/2000 e end = 2/1/2000 si aspetta che duri due giorni
-      //devo in qualche modo 'ingannare' fullcalendar
-      //dunque in questa routine pesco il delta in giorni che l'utente imposta
-      //ora trasformare il delta impostato dall'utente in delta che si aspetta fullcalendar
-      //cioè se l'utente mette 0 giorni di differenza 
-      //io devo impostare end a start + 1 giorno (così se lo aspetta fc)
-      let dateForFC = new Date(start);
-      dateForFC.setDate(dateForFC.getDate()+delta-1); //####
-      console.log ("dateForFC da mostrare: "+dateForFC);
-      end = dateForFC; //####### ecco la data per FullCalendar
     }
     let s_day = ('0' + start.getDate()).slice(-2)
     let s_month = ('0' + (start.getMonth()+1)).slice(-2)
@@ -397,20 +360,7 @@ export class CalendarComponent implements AfterViewInit {
             let sec = 0;
             startCurrent.setHours(hours, min, sec);
             this.calendarEvents.find(x => x.id == result.id).start = startCurrent;
-            let delta = (result.end.getTime()-startCurrent.getTime())/86400000; 
-            //Fullcalendar imposta per una data FullDay la fine dell'evento alle 00:00:00 del giorno seguente
-            //questo non va bene perchè l'utente quando setta 
-            //fullDay = true start = 1/1/2000 e end = 2/1/2000 si aspetta che duri due giorni
-            //devo in qualche modo 'ingannare' fullcalendar
-            //dunque in questa routine pesco il delta in giorni che l'utente imposta
-            //ora trasformare il delta impostato dall'utente in delta che si aspetta fullcalendar
-            //cioè se l'utente mette 0 giorni di differenza 
-            //io devo impostare end a start + 1 giorno (così se lo aspetta fc)
-            let dateForFC = new Date(startCurrent);
-            dateForFC.setDate(dateForFC.getDate()+delta+1); //####
-            console.log ("dateForFC da salvare: "+dateForFC);
-            end = dateForFC; //####### ecco la data per FullCalendar
-            this.calendarEvents.find(x => x.id == result.id).end = end;
+            this.calendarEvents.find(x => x.id == result.id).end = result.end;
           }
           this.calendarEvents.find(x => x.id == result.id).allDay = result.allDay;
         }
