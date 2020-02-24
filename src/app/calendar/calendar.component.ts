@@ -80,6 +80,7 @@ export class CalendarComponent implements AfterViewInit {
     }
   }
 
+  nowIndicator = true;
 
 
   // titleFormat =  [
@@ -108,6 +109,7 @@ export class CalendarComponent implements AfterViewInit {
     api.setOption('header', this.header);
     api.setOption('defaultAllDayEventDuration', this.defaultAllDayEventDuration);
     api.setOption('forceEventDuration', true);
+    api.setOption('nowIndicator', this.nowIndicator);
     api.render();
 
   }
