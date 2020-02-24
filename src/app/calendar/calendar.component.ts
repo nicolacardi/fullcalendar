@@ -8,7 +8,6 @@ import it from '@fullcalendar/core/locales/it';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { Calendar } from '@fullcalendar/core';
 import { FullCalendarComponent } from '@fullcalendar/angular';
-import { OptionsInput } from '@fullcalendar/core/types/input-types';
 import { HostListener } from "@angular/core"; //serve per ottenere l'altezza del device
 
 
@@ -18,6 +17,7 @@ export interface EventType {
   date: String,
   title: String,
   color: String,
+  textColor: String,
   allDay: boolean,
   startTime?: String,
   endTime?: String,
@@ -78,20 +78,8 @@ export class CalendarComponent implements AfterViewInit {
         columnFormat: "dddd d",           
     }
   }
-
-
   nowIndicator = true;
-  businessHours: {
-    // days of week. an array of zero-based day of week integers (0=Sunday)
-    daysOfWeek: [ 1, 2, 3, 4 ], // Monday - Thursday
-  
-    startTime: '10:00', // a start time (10am in this example)
-    endTime: '18:00', // an end time (6pm in this example)
-  }
 
-  // titleFormat =  [
-  // { year: 'numeric', month: 'long', day: 'numeric' }  // like 'September 8 2009', for day views
-  // ];
 
   constructor(public dialog: MatDialog) {this.getScreenSize();}
   @HostListener('window:resize', ['$event'])
@@ -103,7 +91,7 @@ export class CalendarComponent implements AfterViewInit {
 
   //ecco come assegnare il calendario (ha #calendar nell'html) alla variabile calendario
   @ViewChild('calendar') calendario: FullCalendarComponent;
-  options: OptionsInput; //definisco una variabile options di tipo OptionsInput
+
 
   //ecco come settare le opzioni del calendario da qui
   ngAfterViewInit(){
@@ -116,7 +104,8 @@ export class CalendarComponent implements AfterViewInit {
     api.setOption('defaultAllDayEventDuration', this.defaultAllDayEventDuration);
     api.setOption('forceEventDuration', true);
     api.setOption('nowIndicator', this.nowIndicator);
-    api.setOption('businessHours', this.businessHours);
+    api.setOption('weekNumbers', true);
+    api.setOption('weekLabel', "Sett");
 
     api.render();
 
@@ -127,6 +116,10 @@ export class CalendarComponent implements AfterViewInit {
     this.calendario.getApi().changeView('timeGridDay');
   }
 
+  navLinkWeekClick(event) {
+    this.calendario.getApi().gotoDate(event);
+    this.calendario.getApi().changeView('timeGridWeek');
+  }
 
   public calendarWeekends = true;
   //variabili pescate nell'html come opzioni di fullcalendar
@@ -144,6 +137,7 @@ export class CalendarComponent implements AfterViewInit {
         title: 'Dentista',
         date: '2020-02-05',
         color: '#7fff64',
+        textColor: "#000",
         allDay: true,
         start: this.impostaData1,
         end: this.impostaData2
@@ -289,11 +283,15 @@ export class CalendarComponent implements AfterViewInit {
           console.log ("dateForFC da salvare"+dateForFC);
           end = dateForFC; //####### ecco la data per FullCalendar
         }
+
+        let TextColor = "#000"
+        if (this.DarkColor (result.color)) { TextColor = "#FFF"}
         this.calendarEvents = this.calendarEvents.concat([
           {id: (currentmaxid+1),
           title: result.title,
           date: data.dateStr,
           color: result.color,
+          textColor: TextColor,
           allDay: result.allDay,
           start: start,
           end: end //#####
@@ -304,8 +302,21 @@ export class CalendarComponent implements AfterViewInit {
     });
   }
   //*******************************************3. FINE NEW EVENT *************************************
-
-
+  public DarkColor (c) {
+    var c = c.substring(1);      // strip #
+    var rgb = parseInt(c, 16);   // convert rrggbb to decimal
+    var r = (rgb >> 16) & 0xff;  // extract red
+    var g = (rgb >>  8) & 0xff;  // extract green
+    var b = (rgb >>  0) & 0xff;  // extract blue
+    
+    var luma = 0.2126 * r + 0.7152 * g + 0.0722 * b; // per ITU-R BT.709
+    
+    if (luma < 150) {
+        return (true);
+    } else {
+        return (false);
+    }
+  }
   //*******************************************4. CLICK EVENT ****************************************
   clickEvent(event) {
     console.log(event);
@@ -353,6 +364,7 @@ export class CalendarComponent implements AfterViewInit {
     //usare una costante DialogRef consente istanziare la Dialog in modo da
     //'raccoglierne' la chiusura - inoltre con la seguente sintassi passo dei dati alla DialogEvent
     //************************** APERTURA DELLA DIALOG **********************************
+
     const dialogRef = this.dialog.open(DialogEvent, {
       width: '450px',
       data: {
@@ -388,7 +400,9 @@ export class CalendarComponent implements AfterViewInit {
           //ora devo modificare l'evento che ha id = result.id come da array result (result.title, result.color, ecc.)
           this.calendarEvents.find(x => x.id == result.id).title = result.title;
           this.calendarEvents.find(x => x.id == result.id).color = result.color;
-
+          let TextColor = "#000"
+          if (this.DarkColor (result.color)) { TextColor = "#FFF"}
+          this.calendarEvents.find(x => x.id == result.id).textColor = TextColor;
           if (!result.allDay) {
             let startTime = result.startTime;
             let hours = parseInt(startTime.substr(0,2));
