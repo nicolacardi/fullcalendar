@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewChild, AfterViewInit} from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, AfterViewInit, Input} from '@angular/core';
 import dayGridPlugin  from '@fullcalendar/daygrid';
 import listWeekPlugin  from '@fullcalendar/list';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -60,8 +60,7 @@ export class CalendarComponent implements AfterViewInit {
   header = {
     left: 'title',
     center: 'prev,next today',
-
-    right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+    right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
   }
 
   defaultAllDayEventDuration = {
@@ -80,8 +79,15 @@ export class CalendarComponent implements AfterViewInit {
     }
   }
 
-  nowIndicator = true;
 
+  nowIndicator = true;
+  businessHours: {
+    // days of week. an array of zero-based day of week integers (0=Sunday)
+    daysOfWeek: [ 1, 2, 3, 4 ], // Monday - Thursday
+  
+    startTime: '10:00', // a start time (10am in this example)
+    endTime: '18:00', // an end time (6pm in this example)
+  }
 
   // titleFormat =  [
   // { year: 'numeric', month: 'long', day: 'numeric' }  // like 'September 8 2009', for day views
@@ -110,10 +116,16 @@ export class CalendarComponent implements AfterViewInit {
     api.setOption('defaultAllDayEventDuration', this.defaultAllDayEventDuration);
     api.setOption('forceEventDuration', true);
     api.setOption('nowIndicator', this.nowIndicator);
+    api.setOption('businessHours', this.businessHours);
+
     api.render();
 
   }
 
+  navLinkDayClick(event) {
+    this.calendario.getApi().gotoDate(event);
+    this.calendario.getApi().changeView('timeGridDay');
+  }
 
 
   public calendarWeekends = true;

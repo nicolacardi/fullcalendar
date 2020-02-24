@@ -13,6 +13,9 @@
           center: 'title',
           right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
         }"
+        [navLinks] = "'true'"
+        (navLinkDayClick)="navLinkDayClick($event)"
+
         [plugins]="calendarPlugins"
         [locale] = "it"
         [weekends]="calendarWeekends"
