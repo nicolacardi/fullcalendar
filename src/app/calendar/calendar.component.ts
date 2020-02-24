@@ -97,6 +97,7 @@ export class CalendarComponent implements AfterViewInit {
   ngAfterViewInit(){
     const api = this.calendario.getApi();
     api.setOption('height', (this.screenHeight - 35));
+
     api.setOption('themeSystem', 'bootstrap');
     api.setOption('buttonText', this.buttonText);
     api.setOption('views', this.views);
@@ -105,7 +106,7 @@ export class CalendarComponent implements AfterViewInit {
     api.setOption('forceEventDuration', true);
     api.setOption('nowIndicator', this.nowIndicator);
     api.setOption('weekNumbers', true);
-    api.setOption('weekLabel', "Sett");
+    api.setOption('weekLabel', "");
 
     api.render();
 
