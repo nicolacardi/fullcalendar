@@ -17,8 +17,8 @@
     </div>
 
     <div style="text-align: center; ">
-        <button mat-stroked-button style="width: 35px; padding: 0px" (click)="onNoClick()">Annulla</button>
-        <button mat-stroked-button style="width: 35px; margin-left: 3px; padding: 0px;" [mat-dialog-close]="data">OK</button>
+        <button mat-stroked-button style="width: 35px; padding: 0px; font-size: 8px;" (click)="onNoClick()"><mat-icon color="warn">clear</mat-icon>Annulla</button>
+        <button mat-stroked-button style="width: 35px; margin-left: 3px; padding: 0px; font-size: 8px;" [mat-dialog-close]="data"><mat-icon color="primary">done</mat-icon>OK</button>
     </div>
 <div style="text-align: center; margin-top: 20px; ">
     <input [id] = "data.id" hidden>
