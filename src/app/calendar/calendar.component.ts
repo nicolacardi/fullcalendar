@@ -87,6 +87,7 @@ export class CalendarComponent implements AfterViewInit {
   getScreenSize(event?) {
         this.screenHeight = window.innerHeight;
         this.screenWidth = window.innerWidth;
+        console.log (this.screenWidth);
   }
 
   //ecco come assegnare il calendario (ha #calendar nell'html) alla variabile calendario
@@ -105,7 +106,7 @@ export class CalendarComponent implements AfterViewInit {
     api.setOption('defaultAllDayEventDuration', this.defaultAllDayEventDuration);
     api.setOption('forceEventDuration', true);
     api.setOption('nowIndicator', this.nowIndicator);
-    api.setOption('weekNumbers', true);
+    if (this.screenWidth > 1000 ) {api.setOption('weekNumbers', true)} else {api.setOption('weekNumbers', false)}
     api.setOption('weekLabel', "");
 
     api.render();
