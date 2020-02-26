@@ -6,11 +6,16 @@ import interactionPlugin from '@fullcalendar/interaction';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import it from '@fullcalendar/core/locales/it';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
-import { Calendar } from '@fullcalendar/core';
+import { Calendar, formatDate } from '@fullcalendar/core';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { HostListener } from "@angular/core"; //serve per ottenere l'altezza del device
 import { AngularFirestore} from '@angular/fire/firestore'; //questo è il service di firestore da injectare nel constructor
 import { Observable } from 'rxjs';
+import {firestore } from 'firebase/app';
+import  Timestamp = firestore.Timestamp;
+import { HttpEventType } from '@angular/common/http';
+
+import { environment } from '../../environments/environment' //ho messo qui molte impostazioni ambiente di fullcalendar
 
 
 //creo un tipo di dato EventType
@@ -28,6 +33,8 @@ export interface EventType {
   title: string
 }
 
+
+
 var colours = { 
   "aliceblue":"#f0f8ff", "antiquewhite":"#faebd7", "aqua":"#00ffff", "aquamarine":"#7fffd4", "azure":"#f0ffff",  "beige":"#f5f5dc", "bisque":"#ffe4c4", "black":"#000000", "blanchedalmond":"#ffebcd", "blue":"#0000ff", "blueviolet":"#8a2be2", "brown":"#a52a2a", "burlywood":"#deb887",  "cadetblue":"#5f9ea0", "chartreuse":"#7fff00", "chocolate":"#d2691e", "coral":"#ff7f50", "cornflowerblue":"#6495ed", "cornsilk":"#fff8dc", "crimson":"#dc143c", "cyan":"#00ffff",  "darkblue":"#00008b", "darkcyan":"#008b8b", "darkgoldenrod":"#b8860b", "darkgray":"#a9a9a9", "darkgreen":"#006400", "darkkhaki":"#bdb76b", "darkmagenta":"#8b008b", "darkolivegreen":"#556b2f",  "darkorange":"#ff8c00", "darkorchid":"#9932cc", "darkred":"#8b0000", "darksalmon":"#e9967a", "darkseagreen":"#8fbc8f", "darkslateblue":"#483d8b", "darkslategray":"#2f4f4f", "darkturquoise":"#00ced1",  "darkviolet":"#9400d3", "deeppink":"#ff1493", "deepskyblue":"#00bfff", "dimgray":"#696969", "dodgerblue":"#1e90ff",  "firebrick":"#b22222", "floralwhite":"#fffaf0", "forestgreen":"#228b22", "fuchsia":"#ff00ff",  "gainsboro":"#dcdcdc", "ghostwhite":"#f8f8ff", "gold":"#ffd700", "goldenrod":"#daa520", "gray":"#808080", "green":"#008000", "greenyellow":"#adff2f", 
   "honeydew":"#f0fff0", "hotpink":"#ff69b4", "indianred ":"#cd5c5c", "indigo":"#4b0082", "ivory":"#fffff0", "khaki":"#f0e68c",  "lavender":"#e6e6fa", "lavenderblush":"#fff0f5", "lawngreen":"#7cfc00", "lemonchiffon":"#fffacd", "lightblue":"#add8e6", "lightcoral":"#f08080", "lightcyan":"#e0ffff", "lightgoldenrodyellow":"#fafad2",  "lightgrey":"#d3d3d3", "lightgreen":"#90ee90", "lightpink":"#ffb6c1", "lightsalmon":"#ffa07a", "lightseagreen":"#20b2aa", "lightskyblue":"#87cefa", "lightslategray":"#778899", "lightsteelblue":"#b0c4de",  "lightyellow":"#ffffe0", "lime":"#00ff00", "limegreen":"#32cd32", "linen":"#faf0e6",  "magenta":"#ff00ff", "maroon":"#800000", "mediumaquamarine":"#66cdaa", "mediumblue":"#0000cd", "mediumorchid":"#ba55d3", "mediumpurple":"#9370d8", "mediumseagreen":"#3cb371", "mediumslateblue":"#7b68ee",        "mediumspringgreen":"#00fa9a", "mediumturquoise":"#48d1cc", "mediumvioletred":"#c71585", "midnightblue":"#191970", "mintcream":"#f5fffa", "mistyrose":"#ffe4e1", "moccasin":"#ffe4b5", "navajowhite":"#ffdead", "navy":"#000080",  "oldlace":"#fdf5e6", "olive":"#808000", "olivedrab":"#6b8e23", "orange":"#ffa500", "orangered":"#ff4500", "orchid":"#da70d6",  "palegoldenrod":"#eee8aa", 
@@ -43,42 +50,36 @@ var colours = {
 })
 
 
-export class CalendarComponent implements AfterViewInit, OnInit {
+export class CalendarComponent implements AfterViewInit {
 
   //**************************************** 1. SETUP VARI****************************
   it = it; //questa indicazione è necessaria per far funzionare la lingua italiana (workaround di un bug)
   //ecco come ottenere le dimensioni dello schermo, utili per rendere fullcalendar responsivo
+
+  //Di seguito una serie di variabili/properties da utilizzare per il setup del calendario
   screenHeight: number;
   screenWidth: number;
-  buttonText = {
-      today:    'oggi',
-      month:    'mese',
-      week:     'settimana',
-      day:      'giorno',
-      list:     'lista'
-  }
-  header = {
-    left: 'title',
-    center: 'prev,next today',
-    right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
-  }
-  defaultAllDayEventDuration = {
-    days: 1
-  }
-  views = {
-    month: {
-        titleFormat: "YYYY MMMM",                  
-    },
-    week: {
-        columnFormat: "dddd d",            
-    },
-    day: {
-        titleFormat: "dddd d MMMM YYYY",
-        columnFormat: "dddd d",           
-    }
-  }
-  nowIndicator = true;
+
+  //prendo da environment una serie di impostazioni di fullcalendar raggruppate tutte lì
+  buttonText = environment.fullcalendarConfig.buttonText;
+  header = environment.fullcalendarConfig.header;
+  defaultAllDayEventDuration = environment.fullcalendarConfig.defaultAllDayEventDuration;
+  nowIndicator = environment.fullcalendarConfig.nowIndicator;
+  public calendarWeekends = true;
+  public calendarPlugins = [dayGridPlugin, timeGridPlugin, listWeekPlugin, interactionPlugin];
   
+  //non ho trovato per ora un modo più buono per dichiarare l'oggetto calendarEvents
+  //se non passandoglid ei valori che, tanto, verranno schiacciati dal servizio
+
+  //*********************************************************************************
+  //La sintassi per definire un oggetto di tipo EventType è:
+  //calendarEvents = {} as EventType; oppure //calendarEvents = <EventType>{};
+  //ma a noi serve definire un ARRAY di OGGETTI ciascuno di tipo EventType
+  //e la sintassi in teoria è
+  //public calendarEvents: EventType[];
+  //tuttavia con questa si blocca, non riesce a fare il concat in ngOnInit, stranamente
+  //dunque utilizzo una definizione di calendarEvents IMPLICITA inserendogli direttamente dei valori (nemmeno un record completo tra l'altro)
+  //*********************************************************************************
   impostaData1 = new Date('Wed Feb 05 2020 00:00:00 GMT+0100');
   impostaData2 = new Date('Wed Feb 06 2020 00:00:00 GMT+0100');
   calendarEvents= 
@@ -92,95 +93,43 @@ export class CalendarComponent implements AfterViewInit, OnInit {
         start: this.impostaData1,
         textColor: "#000",
         title: 'Dentista'
-
       },
   ];
 
-  // constructor(public dialog: MatDialog, private afs: AngularFirestore) {
-  //   this.getScreenSize();
-  //   this.fc-events =  this.afs.collection('fc-events').valueChanges();
-  // }
-  @ViewChild('calendar') calendario: FullCalendarComponent;
 
-  FCevents: Observable<EventType[]>; 
-  //FCevents: Observable<EventType[]>; //fc-events è di tipo Observable per cui sarà async nell'html
-  
-  
-  
+  FCevents: Observable<any[]>; 
 
   constructor(public dialog: MatDialog, private afs: AngularFirestore) {
-    this.getScreenSize();
-    this.FCevents =  this.afs.collection<EventType>('fc-events').valueChanges();
+    //setta le dimensioni del calendario
+    this.screenHeight = window.innerHeight;
+    this.screenWidth = window.innerWidth;
 
+    //si collega alla collection di Firestore
+    this.FCevents =  this.afs.collection<any>('fc-events').valueChanges();
     this.FCevents.subscribe(
     response => {
-
-        // Object.keys(response).forEach(function(key,index) {
-        //   // key: the name of the object key
-        //   // index: the ordinal position of the key within the object 
-        //   response[key].index.timestamp = new Date (response[key].index.timestamp)
-        // });
-      console.log("array eventi dentista");
-      console.log (this.calendarEvents[0]);
-      this.calendarEvents = response;
-
-
-      this.calendarEvents.forEach(element => {
-        
-        console.log("questo arriva da firebase come response:")
-        console.log (element);
-        //console.log (element.end.getMilliseconds());
-        element.end = new Date (element.end.getMilliseconds());
-        //element.end = new Date(0).setUTCSeconds(element.end.toLocaleDateString())
+      //poichè ci sono dei campi timestamp li devo convertire in Date
+      response.forEach(element => {
+        element.start = element.start.toDate();
+        element.end = element.end.toDate();
       });
-
-
-      //  this.calendarEvents.forEach(element => {
-        //  console.log("questo arriva da firebase come element.start:")
-        //  console.log (element.start);
-        //  console.log (element.start.getSeconds());
-        //element.start = new Date (element.start.getSeconds());
-      //  });
-
-
-      //this.calendarEvents[0].start = this.impostaData1;
-      //this.calendarEvents[0].end = this.impostaData2;
-      console.log (this.calendarEvents[0].start);
-      console.log(this.calendarEvents[0]);
-
+      //a questo punto passo response a this.calendarEvents
+      this.calendarEvents = response;
     });
-  
-  
-  
-
-
+    console.log (this.calendarEvents[0]);
+    console.log (this.calendarEvents[1]);
+    console.log (this.calendarEvents[2]);
   }
 
+  @ViewChild('calendar') calendario: FullCalendarComponent;
+  //@HostListener('window:resize', ['$event']) //non sembra funzionare
 
-
-
-  @HostListener('window:resize', ['$event'])
-
-  getScreenSize(event?) {
-        this.screenHeight = window.innerHeight;
-        this.screenWidth = window.innerWidth;
-  }
-
-  //ecco come assegnare il calendario (ha #calendar nell'html) alla variabile calendario
-
-
-  ngOnInit (){
-    //this.FCevents.subscribe(data => console.log(data[0].title));
-    //this.FCevents.subscribe(data => console.log(data));
-  }
-
-  //ecco come settare le opzioni del calendario da qui
+  //passo al calendario le molte opzioni
   ngAfterViewInit(){
     const api = this.calendario.getApi();
     api.setOption('height', (this.screenHeight - 35));
     api.setOption('themeSystem', 'bootstrap');
     api.setOption('buttonText', this.buttonText);
-    api.setOption('views', this.views);
     api.setOption('header', this.header);
     api.setOption('defaultAllDayEventDuration', this.defaultAllDayEventDuration);
     api.setOption('forceEventDuration', true);
@@ -188,23 +137,11 @@ export class CalendarComponent implements AfterViewInit, OnInit {
     if (this.screenWidth > 1000 ) {api.setOption('weekNumbers', true)} else {api.setOption('weekNumbers', false)}
     api.setOption('weekLabel', "");
     api.render();
-    console.log("ngAfterViewInit");
-    console.log(this.calendarEvents);
+    //console.log("ngAfterViewInit");
+    //console.log(this.calendarEvents);
   }
 
   //FINE SETUP FULL CALENDAR
-
-
-
-  addEmployee(){
-    var employee={
-      firstname: prompt('Enter First Name')
-    }
-    this.afs.collection('employees').add(employee)
-  }
-
-
-
 
   navLinkDayClick(event) {
     this.calendario.getApi().gotoDate(event);
@@ -215,29 +152,6 @@ export class CalendarComponent implements AfterViewInit, OnInit {
     this.calendario.getApi().gotoDate(event);
     this.calendario.getApi().changeView('timeGridWeek');
   }
-
-  public calendarWeekends = true;
-  //variabili pescate nell'html come opzioni di fullcalendar
-  public calendarPlugins = [dayGridPlugin, timeGridPlugin, listWeekPlugin, interactionPlugin];
-  
-
-  //eventi base inseriti nel calendario
-  //creo due variabili di tipo data per poter implicitamente definire come date i campi start ed end
-
-
-
-  //*********************************************************************************
-  //La sintassi per definire un oggetto di tipo EventType è:
-  //calendarEvents = {} as EventType; oppure //calendarEvents = <EventType>{};
-  //ma a noi serve definire un ARRAY di OGGETTI ciascuno di tipo EventType
-  //e la sintassi in teoria è
-  //public calendarEvents: EventType[];
-  //tuttavia con questa si blocca, non riesce a fare il concat in ngOnInit, stranamente
-  //dunque utilizzo una definizione di calendarEvents IMPLICITA inserendogli direttamente dei valori (nemmeno un record completo tra l'altro)
-  //*********************************************************************************
-  
-  //definizione della dialog di tipo MatDialog
-
   //***************************************1. FINE SETUP VARI **********************************
 
 
@@ -275,10 +189,6 @@ export class CalendarComponent implements AfterViewInit, OnInit {
     }
     //ritraduco in una data
     let endDate = new Date (endDateNum);
-
-
-
-
 
     //assegno start e endDate
     this.calendarEvents.find(x => x.id == event.event.id).start = startDate;

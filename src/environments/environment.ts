@@ -14,6 +14,25 @@ export const environment = {
     messagingSenderId: "411638616069",
     appId: "1:411638616069:web:e10a0cbb1ffe59d21e8c6c",
     measurementId: "G-QDCRH2TG1B"
+  },
+
+  fullcalendarConfig : {
+    buttonText : {
+        today:    'oggi',
+        month:    'mese',
+        week:     'settimana',
+        day:      'giorno',
+        list:     'lista'
+    },
+    header : {
+      left: 'title',
+      center: 'prev,next today',
+      right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
+    },
+    defaultAllDayEventDuration : {
+    days: 1
+    },
+    nowIndicator : true
   }
 };
 
