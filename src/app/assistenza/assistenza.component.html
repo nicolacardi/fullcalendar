@@ -1,1 +1,10 @@
-<p>assistenza works!</p>
+<button (click)="addEmployee()">addemployee</button>
+<table>
+    <caption>Employees Added</caption>
+    <tr *ngFor=" let employee of employees | async">
+        <td>
+            {{employee.firstname}}
+        </td>
+    </tr>
+
+</table>

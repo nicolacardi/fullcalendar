@@ -6,7 +6,7 @@ import { AssistenzaComponent } from './assistenza/assistenza.component';
 const routes: Routes = [
   { path: '', component: CalendarComponent },
   { path: 'calendario', component: CalendarComponent },
-  { path: 'assistenza', component: AssistenzaComponent },
+  { path: 'assistenza', component: AssistenzaComponent }
 ];
 
 @NgModule({

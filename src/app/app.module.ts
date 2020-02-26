@@ -22,6 +22,10 @@ import { AssistenzaComponent } from './assistenza/assistenza.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../environments/environment'
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+
 
 @NgModule({
   declarations: [
@@ -45,9 +49,11 @@ import { MatListModule } from '@angular/material/list';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule
   ],
-  providers: [],
+  providers: [ ],
   bootstrap: [AppComponent],
   entryComponents: [
     DialogEvent,

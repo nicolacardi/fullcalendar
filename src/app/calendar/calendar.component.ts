@@ -9,21 +9,23 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { Calendar } from '@fullcalendar/core';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { HostListener } from "@angular/core"; //serve per ottenere l'altezza del device
+import { AngularFirestore} from '@angular/fire/firestore'; //questo è il service di firestore da injectare nel constructor
+import { Observable } from 'rxjs';
 
 
 //creo un tipo di dato EventType
 export interface EventType {
-  id: number
-  date: String,
-  title: String,
-  color: String,
-  textColor: String,
   allDay: boolean,
-  startTime?: String,
-  endTime?: String,
-  start: Date,
+  color: string,
+  date: string,
   end: Date,
-  showDel?: boolean
+  endTime?: string,
+  id: number,
+  showDel?: boolean,
+  start: Date,
+  startTime?: string,
+  textColor: string,
+  title: string
 }
 
 var colours = { 
@@ -41,15 +43,13 @@ var colours = {
 })
 
 
-export class CalendarComponent implements AfterViewInit {
+export class CalendarComponent implements AfterViewInit, OnInit {
 
   //**************************************** 1. SETUP VARI****************************
   it = it; //questa indicazione è necessaria per far funzionare la lingua italiana (workaround di un bug)
-
   //ecco come ottenere le dimensioni dello schermo, utili per rendere fullcalendar responsivo
   screenHeight: number;
   screenWidth: number;
-
   buttonText = {
       today:    'oggi',
       month:    'mese',
@@ -62,7 +62,6 @@ export class CalendarComponent implements AfterViewInit {
     center: 'prev,next today',
     right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
   }
-
   defaultAllDayEventDuration = {
     days: 1
   }
@@ -79,26 +78,106 @@ export class CalendarComponent implements AfterViewInit {
     }
   }
   nowIndicator = true;
+  
+  impostaData1 = new Date('Wed Feb 05 2020 00:00:00 GMT+0100');
+  impostaData2 = new Date('Wed Feb 06 2020 00:00:00 GMT+0100');
+  calendarEvents= 
+    [
+      {
+        allDay: true,
+        color: '#7fff64',
+        date: '2020-02-05',
+        end: this.impostaData2,
+        id: 1,
+        start: this.impostaData1,
+        textColor: "#000",
+        title: 'Dentista'
+
+      },
+  ];
+
+  // constructor(public dialog: MatDialog, private afs: AngularFirestore) {
+  //   this.getScreenSize();
+  //   this.fc-events =  this.afs.collection('fc-events').valueChanges();
+  // }
+  @ViewChild('calendar') calendario: FullCalendarComponent;
+
+  FCevents: Observable<EventType[]>; 
+  //FCevents: Observable<EventType[]>; //fc-events è di tipo Observable per cui sarà async nell'html
+  
+  
+  
+
+  constructor(public dialog: MatDialog, private afs: AngularFirestore) {
+    this.getScreenSize();
+    this.FCevents =  this.afs.collection<EventType>('fc-events').valueChanges();
+
+    this.FCevents.subscribe(
+    response => {
+
+        // Object.keys(response).forEach(function(key,index) {
+        //   // key: the name of the object key
+        //   // index: the ordinal position of the key within the object 
+        //   response[key].index.timestamp = new Date (response[key].index.timestamp)
+        // });
+      console.log("array eventi dentista");
+      console.log (this.calendarEvents[0]);
+      this.calendarEvents = response;
 
 
-  constructor(public dialog: MatDialog) {this.getScreenSize();}
+      this.calendarEvents.forEach(element => {
+        
+        console.log("questo arriva da firebase come response:")
+        console.log (element);
+        //console.log (element.end.getMilliseconds());
+        element.end = new Date (element.end.getMilliseconds());
+        //element.end = new Date(0).setUTCSeconds(element.end.toLocaleDateString())
+      });
+
+
+      //  this.calendarEvents.forEach(element => {
+        //  console.log("questo arriva da firebase come element.start:")
+        //  console.log (element.start);
+        //  console.log (element.start.getSeconds());
+        //element.start = new Date (element.start.getSeconds());
+      //  });
+
+
+      //this.calendarEvents[0].start = this.impostaData1;
+      //this.calendarEvents[0].end = this.impostaData2;
+      console.log (this.calendarEvents[0].start);
+      console.log(this.calendarEvents[0]);
+
+    });
+  
+  
+  
+
+
+  }
+
+
+
+
   @HostListener('window:resize', ['$event'])
 
   getScreenSize(event?) {
         this.screenHeight = window.innerHeight;
         this.screenWidth = window.innerWidth;
-        console.log (this.screenWidth);
   }
 
   //ecco come assegnare il calendario (ha #calendar nell'html) alla variabile calendario
-  @ViewChild('calendar') calendario: FullCalendarComponent;
 
+
+  ngOnInit (){
+    //this.FCevents.subscribe(data => console.log(data[0].title));
+    //this.FCevents.subscribe(data => console.log(data));
+  }
 
   //ecco come settare le opzioni del calendario da qui
   ngAfterViewInit(){
     const api = this.calendario.getApi();
     api.setOption('height', (this.screenHeight - 35));
-
     api.setOption('themeSystem', 'bootstrap');
     api.setOption('buttonText', this.buttonText);
     api.setOption('views', this.views);
@@ -108,10 +187,24 @@ export class CalendarComponent implements AfterViewInit {
     api.setOption('nowIndicator', this.nowIndicator);
     if (this.screenWidth > 1000 ) {api.setOption('weekNumbers', true)} else {api.setOption('weekNumbers', false)}
     api.setOption('weekLabel', "");
-
     api.render();
-
+    console.log("ngAfterViewInit");
+    console.log(this.calendarEvents);
   }
+
+  //FINE SETUP FULL CALENDAR
+
+
+
+  addEmployee(){
+    var employee={
+      firstname: prompt('Enter First Name')
+    }
+    this.afs.collection('employees').add(employee)
+  }
+
+
+
 
   navLinkDayClick(event) {
     this.calendario.getApi().gotoDate(event);
@@ -130,21 +223,9 @@ export class CalendarComponent implements AfterViewInit {
 
   //eventi base inseriti nel calendario
   //creo due variabili di tipo data per poter implicitamente definire come date i campi start ed end
-  impostaData1 = new Date('Wed Feb 05 2020 00:00:00 GMT+0100');
-  impostaData2 = new Date('Wed Feb 06 2020 00:00:00 GMT+0100');
-  calendarEvents= 
-    [
-      {
-        id: 1,
-        title: 'Dentista',
-        date: '2020-02-05',
-        color: '#7fff64',
-        textColor: "#000",
-        allDay: true,
-        start: this.impostaData1,
-        end: this.impostaData2
-      },
-  ];
+
+
+
   //*********************************************************************************
   //La sintassi per definire un oggetto di tipo EventType è:
   //calendarEvents = {} as EventType; oppure //calendarEvents = <EventType>{};
