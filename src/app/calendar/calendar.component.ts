@@ -65,6 +65,22 @@ export class CalendarComponent implements AfterViewInit {
   header = environment.fullcalendarConfig.header;
   defaultAllDayEventDuration = environment.fullcalendarConfig.defaultAllDayEventDuration;
   nowIndicator = environment.fullcalendarConfig.nowIndicator;
+  // buttonText = {
+  //   today:    'oggi',
+  //   month:    'mese',
+  //   week:     'settimana',
+  //   day:      'giorno',
+  //   list:     'lista'
+  // }
+  // header = {
+  //   left: 'title',
+  //   center: 'prev,next today',
+  //   right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
+  // }
+  // defaultAllDayEventDuration : {
+  //   days: 1
+  // }
+  // nowIndicator : true;
   public calendarWeekends = true;
   public calendarPlugins = [dayGridPlugin, timeGridPlugin, listWeekPlugin, interactionPlugin];
   
@@ -117,8 +133,7 @@ export class CalendarComponent implements AfterViewInit {
       this.calendarEvents = response;
     });
     console.log (this.calendarEvents[0]);
-    console.log (this.calendarEvents[1]);
-    console.log (this.calendarEvents[2]);
+
   }
 
   @ViewChild('calendar') calendario: FullCalendarComponent;
