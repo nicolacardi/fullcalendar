@@ -1,20 +1,16 @@
-import { Component, OnInit, Inject, ViewChild, AfterViewInit, Input} from '@angular/core';
+import { Component, Inject, ViewChild, AfterViewInit} from '@angular/core';
 import dayGridPlugin  from '@fullcalendar/daygrid';
 import listWeekPlugin  from '@fullcalendar/list';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import it from '@fullcalendar/core/locales/it';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
-import { Calendar, formatDate } from '@fullcalendar/core';
+
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { HostListener } from "@angular/core"; //serve per ottenere l'altezza del device
-import { AngularFirestore} from '@angular/fire/firestore'; //questo è il service di firestore da injectare nel constructor
+import { AngularFirestore, AngularFirestoreDocument} from '@angular/fire/firestore'; //questo è il service di firestore da injectare nel constructor
 import { Observable } from 'rxjs';
-import {firestore } from 'firebase/app';
-import  Timestamp = firestore.Timestamp;
-import { HttpEventType } from '@angular/common/http';
-
+import { map } from 'rxjs/operators'
 import { environment } from '../../environments/environment' //ho messo qui molte impostazioni ambiente di fullcalendar
 
 
@@ -25,7 +21,7 @@ export interface EventType {
   date: string,
   end: Date,
   endTime?: string,
-  id: number,
+  id: string,
   showDel?: boolean,
   start: Date,
   startTime?: string,
@@ -96,16 +92,16 @@ export class CalendarComponent implements AfterViewInit {
   //tuttavia con questa si blocca, non riesce a fare il concat in ngOnInit, stranamente
   //dunque utilizzo una definizione di calendarEvents IMPLICITA inserendogli direttamente dei valori (nemmeno un record completo tra l'altro)
   //*********************************************************************************
-  impostaData1 = new Date('Wed Feb 05 2020 00:00:00 GMT+0100');
-  impostaData2 = new Date('Wed Feb 06 2020 00:00:00 GMT+0100');
+  impostaData1 = new Date('Wed Feb 02 2018 00:00:00 GMT+0100');
+  impostaData2 = new Date('Wed Feb 02 2018 00:00:00 GMT+0100');
   calendarEvents= 
     [
       {
         allDay: true,
         color: '#7fff64',
-        date: '2020-02-05',
+        date: '2018-01-05',
         end: this.impostaData2,
-        id: 1,
+        id: "1",
         start: this.impostaData1,
         textColor: "#000",
         title: 'Dentista'
@@ -114,6 +110,7 @@ export class CalendarComponent implements AfterViewInit {
 
 
   FCevents: Observable<any[]>; 
+  FCevent: AngularFirestoreDocument<EventType>;
 
   constructor(public dialog: MatDialog, private afs: AngularFirestore) {
     //setta le dimensioni del calendario
@@ -121,19 +118,34 @@ export class CalendarComponent implements AfterViewInit {
     this.screenWidth = window.innerWidth;
 
     //si collega alla collection di Firestore
-    this.FCevents =  this.afs.collection<any>('fc-events').valueChanges();
+    //Valuechanges consente di portare dentro i dati ma non l'id
+    this.FCevents = this.afs.collection<any>('fc-events').valueChanges();
+    this.FCevents = this.afs.collection('fc-events').snapshotChanges().pipe(map(
+      changes => {
+      return changes.map(
+      a => {
+      const data = a.payload.doc.data() as EventType;
+      data.id = a.payload.doc.id;
+      return data;
+      });
+    }));
+
     this.FCevents.subscribe(
-    response => {
+    data => {
       //poichè ci sono dei campi timestamp li devo convertire in Date
-      response.forEach(element => {
+      data.forEach(element => {
         element.start = element.start.toDate();
         element.end = element.end.toDate();
       });
       //a questo punto passo response a this.calendarEvents
-      this.calendarEvents = response;
+      this.calendarEvents = data
+      // .map (e => {return {
+      //   id: e.payload.doc.id,
+      //   ...e.payload.doc.data
+      // }})
+      ;
     });
     console.log (this.calendarEvents[0]);
-
   }
 
   @ViewChild('calendar') calendario: FullCalendarComponent;
@@ -206,8 +218,15 @@ export class CalendarComponent implements AfterViewInit {
     let endDate = new Date (endDateNum);
 
     //assegno start e endDate
-    this.calendarEvents.find(x => x.id == event.event.id).start = startDate;
-    this.calendarEvents.find(x => x.id == event.event.id).end = endDate;
+    //this.calendarEvents.find(x => x.id == event.event.id).start = startDate;
+    //this.calendarEvents.find(x => x.id == event.event.id).end = endDate;
+
+    let EventUpdateData =
+    {
+      start: startDate,
+      end: endDate //#####
+    }
+    this.afs.doc('fc-events/'+event.event.id).update(EventUpdateData);
   }
   //******************************************2. FINE DRAG & DROP EVENTO*************************
 
@@ -233,7 +252,7 @@ export class CalendarComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(DialogEvent, {
       width: '450px',
       data: {
-        id: (currentmaxid+1),       //id: any
+               //id: any
         title: "Nuovo Evento",      //title: any
         color: colorcode,           //color: string
         allDay: true,  //allDay: any (perchè non boolean?)
@@ -294,7 +313,7 @@ export class CalendarComponent implements AfterViewInit {
 
         let TextColor = "#000"
         if (this.DarkColor (result.color)) { TextColor = "#FFF"}
-        this.calendarEvents = this.calendarEvents.concat([
+        let newEvent =
           {id: (currentmaxid+1),
           title: result.title,
           date: data.dateStr,
@@ -304,7 +323,21 @@ export class CalendarComponent implements AfterViewInit {
           start: start,
           end: end //#####
         }
-        ]);
+        
+        console.log (newEvent);
+        this.afs.collection('fc-events').add(newEvent);
+
+        // this.calendarEvents = this.calendarEvents.concat([
+        //   {id: (currentmaxid+1),
+        //   title: result.title,
+        //   date: data.dateStr,
+        //   color: result.color,
+        //   textColor: TextColor,
+        //   allDay: result.allDay,
+        //   start: start,
+        //   end: end //#####
+        // }
+        // ]);
       }
       
     });
@@ -400,39 +433,46 @@ export class CalendarComponent implements AfterViewInit {
         //dove ## è l'id dell'elemento da cancellare  
         //Se siamo nel primo caso allora start è sempre valorizzato, nel secondo mai.
         if (!result.start){
-          let idToRemove = parseInt(result.substring(6));
-          console.log("Sto per rimuovere dall'array l'elemento con id:"+idToRemove);
-          this.calendarEvents.splice(this.calendarEvents.findIndex(v => v.id == idToRemove), 1);
+          //let idToRemove = parseInt(result.substring(6));//così per trovare l'id e toglierlo dall'array
+          let idToRemove = result.substring(6);
+          console.log("Sto per rimuovere dal db l'elemento con id:"+idToRemove);
+          this.afs.doc('fc-events/'+idToRemove).delete();
+          //this.calendarEvents.splice(this.calendarEvents.findIndex(v => v.id == idToRemove), 1);
         } else {
           result as EventType;
           //ora devo modificare l'evento che ha id = result.id come da array result (result.title, result.color, ecc.)
-          this.calendarEvents.find(x => x.id == result.id).title = result.title;
-          this.calendarEvents.find(x => x.id == result.id).color = result.color;
           let TextColor = "#000"
           if (this.DarkColor (result.color)) { TextColor = "#FFF"}
-          this.calendarEvents.find(x => x.id == result.id).textColor = TextColor;
+          //this.calendarEvents.find(x => x.id == result.id).textColor = TextColor;
+
+          //this.calendarEvents.find(x => x.id == result.id).title = result.title;
+          //this.calendarEvents.find(x => x.id == result.id).color = result.color;
+
           if (!result.allDay) {
             let startTime = result.startTime;
             let hours = parseInt(startTime.substr(0,2));
             let min = parseInt(startTime.substr(3,2));
             let sec = parseInt(startTime.substr(4,2));
             result.start.setHours(hours, min, sec);
-            this.calendarEvents.find(x => x.id == result.id).start = result.start;
+            start = result.start; //###
+            //this.calendarEvents.find(x => x.id == result.id).start = result.start;
 
-            let endCurrent=new Date(result.end);
+            let end=new Date(result.end);
             let endTime = result.endTime;
             hours = parseInt(endTime.substr(0,2));
             min = parseInt(endTime.substr(3,2));
             sec = parseInt(endTime.substr(4,2));
-            endCurrent.setHours(hours, min, sec);
-            this.calendarEvents.find(x => x.id == result.id).end = endCurrent;
+            end.setHours(hours, min, sec);
+            
+            //this.calendarEvents.find(x => x.id == result.id).end = end;
           } else {
             let startCurrent = result.start;
             let hours = 0;
             let min = 0;
             let sec = 0;
             startCurrent.setHours(hours, min, sec);
-            this.calendarEvents.find(x => x.id == result.id).start = startCurrent;
+            start = startCurrent; //###
+            //this.calendarEvents.find(x => x.id == result.id).start = startCurrent;
             let delta = (result.end.getTime()-startCurrent.getTime())/86400000; 
             //Fullcalendar imposta per una data FullDay la fine dell'evento alle 00:00:00 del giorno seguente
             //questo non va bene perchè l'utente quando setta 
@@ -446,9 +486,23 @@ export class CalendarComponent implements AfterViewInit {
             dateForFC.setDate(dateForFC.getDate()+delta+1); //####
             console.log ("dateForFC da salvare: "+dateForFC);
             end = dateForFC; //####### ecco la data per FullCalendar
-            this.calendarEvents.find(x => x.id == result.id).end = end;
+            
+            //this.calendarEvents.find(x => x.id == result.id).end = end;
           }
-          this.calendarEvents.find(x => x.id == result.id).allDay = result.allDay;
+          //this.calendarEvents.find(x => x.id == result.id).allDay = result.allDay;
+
+          let EventUpdateData =
+          {
+            title: result.title,
+            color: result.color,
+            textColor: TextColor,
+            allDay: result.allDay,
+            start: start,
+            end: end //#####
+          }
+
+          //ora devo passare EventUpdateData all'update
+          this.afs.doc('fc-events/'+result.id).update(EventUpdateData);
         }
       }
     });
