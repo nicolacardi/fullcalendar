@@ -1,0 +1,80 @@
+
+    <div style="position: relative; ">
+        <!-- <input [value]="data.title" #inputTitle> -->
+        <button style="display: inline; position: absolute; right: 0px; top: 0px; background-color: transparent; border: 0px; outline: none;" *ngIf="data.showDel" [mat-dialog-close]="'delete'+data.id"><mat-icon color="primary">delete_outline</mat-icon></button>
+        <!-- <div class="titolo">{{data.start.toLocaleDateString('it-IT')}}</div>
+        <div class="titolo">{{data.end.toLocaleDateString('it-IT')}}</div> -->
+        <select  id="colorpicker" style="left: 8px; top: -12px; width: 30px" matNativeControl [(ngModel)]="data.color">
+            <option value="#c6c6c6"> &nbsp;⚪ </option>
+            <option value="#f23838"> &nbsp;🔴 </option>
+            <option value="#3c8ec6"> &nbsp;🔵 </option>
+            <option value="#845b5b"> &nbsp;🟤 </option>
+            <option value="#9850ff"> &nbsp;🟣 </option>
+            <option value="#7fff64"> &nbsp;🟢 </option>
+            <option value="#ffe655"> &nbsp;🟡 </option>
+            <option value="#ffac52"> &nbsp;🟠 </option>
+        </select>
+    </div>
+
+    <div style="text-align: center; ">
+        <button mat-stroked-button style="width: 35px; padding: 0px; font-size: 8px;" (click)="onNoClick()"><mat-icon color="warn">clear</mat-icon>Annulla</button>
+        <button mat-stroked-button style="width: 35px; margin-left: 3px; padding: 0px; font-size: 8px;" [mat-dialog-close]="data"><mat-icon color="primary">done</mat-icon>OK</button>
+    </div>
+<div style="text-align: center; margin-top: 20px; ">
+    <input [id] = "data.id" hidden>
+    <div style="text-align: center; margin: auto; ">
+        <mat-form-field [style.width.px]=180>
+            <mat-label>Descrizione Evento</mat-label>
+            <input style="width: 400px" matInput [(ngModel)]="data.title">
+        </mat-form-field>
+        <div class="row">
+            <div [ngClass]="{'col-md-12':(data.allDay)}" class="col-md-6" >
+                <mat-form-field appearance="outline" [style.width.px]=180>
+                    <mat-label>Data di Inizio</mat-label>
+                    <input [max]="data.end" matInput [matDatepicker]="picker" [(ngModel)] = "data.start" #DataInizio (dateChange)="onChangeDate( data.start, data.end, data.startTime)" required>
+                    <mat-datepicker-toggle matSuffix [for]="picker" style="outline: none"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field appearance="outline" [style.width.px]=180 *ngIf="!(data.allDay)">
+                    <mat-label>Ora Inizio</mat-label>
+                    <select matNativeControl id="dalle" [disabled]="data.allDay" [(ngModel)]="data.startTime" #AlleOre>
+                        <!-- <option value="-" [selected]="data.allDay">-</option> -->
+                        <option *ngFor="let time of timesArray" [value]="time.timeString" [disabled]="((data.end).toLocaleDateString() === data.start.toLocaleDateString())&& (time.timeString>data.endTime)">{{time.timeToShow}}</option>
+                    </select>
+                
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div [ngClass]="{'col-md-12':(data.allDay)}" class="col-md-6">
+                <mat-form-field appearance="outline" [style.width.px]=180 >
+                    <mat-label>Data di Fine</mat-label>
+                    <input [min]="data.start" matInput [matDatepicker]="picker2" [(ngModel)] = "data.end" #DataFine (dateChange)="onChangeDate( data.start, data.end, data.startTime)" required>
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6" >
+                <mat-form-field appearance="outline" [style.width.px]=180 *ngIf="!(data.allDay)">
+                    <mat-label>Ora di fine</mat-label>
+                    <select matNativeControl id="alle" [disabled]="data.allDay" [(ngModel)]="data.endTime">
+                    <!-- <option value="-" [selected]="data.allDay">-</option> -->
+                    <option *ngFor="let time of timesArray" [value]="time.timeString" [disabled]="((data.end).toLocaleDateString() === data.start.toLocaleDateString())&& (time.timeString<data.startTime)">{{time.timeToShow}}</option>
+                    </select>
+                </mat-form-field>
+            </div>
+        </div>
+
+ 
+
+    <div style="text-align: center">
+        <mat-checkbox id="allDay" [(ngModel)]="data.allDay" (click)="onClickAllDay(data.id, data.allDay, data.start, data.end, data.startTime, data.endTime)" color="primary" >tutto il giorno</mat-checkbox>
+    </div>
+
+
+
+    <!-- <div><label for="color1">Color 1</label> <input id="color1" type="text" name="color1" value="#333399" /></div>-->
+
+</div>

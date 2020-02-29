@@ -1,0 +1,71 @@
+<!--Questo non è un template driven come la dialog calendar ma un reactive form!-->
+<form [formGroup]="service.form" class="normal-form" (submit)="onSubmit()">
+    <mat-grid-list cols="2" rowHeight="500px">
+        <mat-grid-tile>
+            <div class="controles-container">
+                <input type="hidden" formControlName="$key">
+                <mat-form-field>
+                    <input formControlName="name" matInput placeholder="Nome*">
+                    <mat-error>campo richiesto</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="surname" matInput placeholder="Cognome*">
+                    <mat-error>campo richiesto</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Data di Nascita</mat-label>
+                    <input formControlName="birthdate" matInput [matDatepicker]="pickerxx" placeholder="gg/mm/aaaa">
+                    <mat-datepicker-toggle matSuffix [for]="pickerxx"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerxx></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="address" matInput placeholder="Indirizzo (Via/Piazza) e N°">
+                </mat-form-field>
+                <mat-form-field>
+                    <input formControlName="city" matInput placeholder="Comune">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Cellulare*</mat-label>
+                    <input formControlName="mobile" matInput>
+                    <mat-error *ngIf="service.form.controls['mobile'].errors?.required">campo richiesto</mat-error>
+                    <mat-error *ngIf="service.form.controls['mobile'].errors?.minlength">lunghezza minima 8 cifre</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>e-mail</mat-label>
+                    <input formControlName="email" matInput placeholder="es. 'mario.rossi@yahoo.it'">
+                    <mat-error>formato email non valido</mat-error>
+                </mat-form-field>
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <div class="controles-container">
+                <div class="add-bottom-padding">
+                    <mat-radio-group formControlName="gender">
+                        <mat-radio-button value="1">M</mat-radio-button>
+                        <br>
+                        <mat-radio-button value="2">F</mat-radio-button>
+                        <br>
+                        <mat-radio-button value="3">Altro</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <mat-form-field>
+                    <mat-select formControlName="type" placeholder="tipo">
+                        <mat-option>None</mat-option>
+                        <ng-container *ngFor="let tipoCliente of tipiCliente">
+                            <mat-option value="{{tipoCliente.id}}">{{tipoCliente.value}}</mat-option>
+                        </ng-container>
+                    </mat-select>
+                </mat-form-field>
+                <div class="add-bottom-padding">
+                    <mat-checkbox formControlName="fattElettronica">
+                        Ha fatturazione Elettronica
+                    </mat-checkbox>
+                </div> 
+                <div class="button-row">
+                    <button mat-raised-button color="primary" type="submit" [disabled]="service.form.invalid">Salva</button>
+                    <button mat-raised-button color="warn" type="submit" (click)="onClear()">Pulisci</button>
+                </div>
+            </div> 
+        </mat-grid-tile>
+    </mat-grid-list>
+</form>

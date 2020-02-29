@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
-
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,17 +20,13 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { AssistenzaComponent } from './assistenza/assistenza.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { MatGridListModule } from '@angular/material/grid-list'
-import { MatRadioModule } from '@angular/material/radio'
-import { MatSelectModule } from '@angular/material/select'
 
 import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment'
-
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { ClientiComponent } from './clienti/clienti.component';
-import { ClienteComponent } from './clienti/cliente/cliente.component';
-import { ClienteService } from './shared/cliente.service'
+
+
 
 @NgModule({
   declarations: [
@@ -39,8 +34,7 @@ import { ClienteService } from './shared/cliente.service'
     DialogEvent,
     CalendarComponent,
     AssistenzaComponent,
-    ClientiComponent,
-    ClienteComponent
+    ClientiComponent
   ],
   imports: [
     BrowserModule,
@@ -59,15 +53,10 @@ import { ClienteService } from './shared/cliente.service'
     MatSidenavModule,
     MatListModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule,
-    ReactiveFormsModule,
-    MatGridListModule,
-    MatRadioModule,
-    MatSelectModule
+    AngularFirestoreModule
   ],
   providers: [ 
     {provide: MAT_DATE_LOCALE, useValue: 'it-IT'},
-    ClienteService
 ],
   bootstrap: [AppComponent],
   entryComponents: [
