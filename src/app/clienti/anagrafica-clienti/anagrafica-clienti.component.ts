@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from '@angular/fire/firestore';  //firestore
 import { ClienteService } from '../../shared/cliente.service'
 import { MatTableDataSource } from '@angular/material/table'
 import { MatSort } from '@angular/material/sort';
@@ -36,11 +35,11 @@ export class AnagraficaClientiComponent implements OnInit {
         this.anagraficaClienti.sort = this.sort;
         this.anagraficaClienti.paginator = this.paginator;
         //poichè il filter potrebbe funzionare anche se inserisco dei valori che NON sono contenuti nelle displayed columns devo LIMITARE il filtro. Si fa così (non chiaro perchè ma funziona)
-        this.anagraficaClienti.filterPredicate = (data, filter) => {
-          return this.displayedColumns.some(ele => {
-            return ele != 'actions' && data[ele].toLowercase().indexof.filter() != -1;
-          });
-        };
+        // this.anagraficaClienti.filterPredicate = (data, filter) => {
+        //   return this.displayedColumns.some(ele => {
+        //     return ele != 'actions' && data[ele].toLowercase().indexof.filter() != -1;
+        //   });
+        // };
       }
     );
   }

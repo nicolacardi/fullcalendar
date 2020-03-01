@@ -17,15 +17,6 @@ export class ClienteComponent implements OnInit {
   ngOnInit(): void {
       this.service.getClienti();
   }
-  
-  tipiCliente = [
-    {id: 1, value: 'Contatto Telefonico'},
-    {id: 2, value: 'Richiesta da Web'},
-    {id: 3, value: 'Segnalazione da amico'},
-    {id: 4, value: 'Adesione a promo del 1/1/2018'},
-    {id: 5, value: 'Adesione a promo del 1/1/2019'},
-    {id: 6, value: 'Adesione a promo del 1/1/2020'}
-  ]
 
   onClear() {
     this.service.form.reset();

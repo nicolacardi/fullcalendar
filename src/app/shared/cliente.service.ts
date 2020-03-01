@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import {FormGroup, FormControl, Validators } from '@angular/forms' //un FormControl sta dentro un FormGroup
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from '@angular/fire/firestore';  //firestore
+import { map } from 'rxjs/operators'  
+import { ClienteTipo } from '../models/models'               //interface ClienteTipo
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +14,23 @@ export class ClienteService {
   getClienti(){
     this.listaclienti = this.afs.collection('db-clienti');
     return this.listaclienti.snapshotChanges();
+    // return this.listaclienti.snapshotChanges()
+    // .pipe(map(
+    //   changes => {
+    //   return changes.map(
+    //   a => {
+    //   const data = a.payload.doc.data() as ClienteTipo;
+    //   return data;
+    //   });
+    // }))
+    // .subscribe(
+    //   data => {
+    //     //poichè ci sono dei campi timestamp li devo convertire in Date
+    //     data.forEach(element => {
+    //       element.birthdate = element.birthdate.toDate();
+    //     });
+    //     //this.calendarEvents = data
+    //   });
   }
 
   insertCliente(cliente){

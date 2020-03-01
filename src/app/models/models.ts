@@ -13,6 +13,17 @@ export interface EventType {
     title: string
   }
   
+export interface ClienteTipo {
+  name: string,
+  surname: string,
+  email: string,
+  birthdate: Date,
+  address: string,
+  city: string,
+  mobile: number,
+  gender: string,
+  fattElettronica?: boolean,
+}
 
 
 // export const colours = [
