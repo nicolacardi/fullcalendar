@@ -8,8 +8,8 @@ import { AnagraficaClientiComponent } from './clienti/anagrafica-clienti/anagraf
 const routes: Routes = [
   { path: '', component: CalendarComponent },
   { path: 'calendario', component: CalendarComponent },
-  { path: 'assistenza', component: AssistenzaComponent },
-  { path: 'cliente', component: ClientiComponent },
+  // { path: 'assistenza', component: AssistenzaComponent },
+  //{ path: 'cliente', component: ClientiComponent },
   { path: 'anagrafica clienti', component: AnagraficaClientiComponent }
   
 ];
