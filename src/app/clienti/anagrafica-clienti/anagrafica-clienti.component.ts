@@ -18,6 +18,7 @@ export class AnagraficaClientiComponent implements OnInit {
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  searchKey: string;
 
   ngOnInit(): void {
     this.service.getClienti().subscribe(
@@ -35,15 +36,23 @@ export class AnagraficaClientiComponent implements OnInit {
       }
     );
 
+
       // this.service.getClienti().subscribe(
       //   data => {
-          
       //     let array = data;
       //     console.log (array);
-      //     //a questo punto passo response a this.calendarEvents
       //   });
 
+  }
 
+  onSearchClear(){
+      this.searchKey="";
+      this.applyFilter();
+  }
+
+  applyFilter(){
+    //trimmiamo spazi prima e dopo e riduciamo a lowercase
+    this.anagraficaClienti.filter = this.searchKey.trim().toLowerCase();
   }
 
 

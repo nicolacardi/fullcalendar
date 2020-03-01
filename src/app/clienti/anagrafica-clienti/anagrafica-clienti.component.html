@@ -1,3 +1,15 @@
+<div class="search-div">
+    <button mat-raised-button>
+        <mat-icon>add</mat-icon>Create
+    </button>
+    <mat-form-field class="search-form-field" floatLabel="never">
+        <input matInput [(ngModel)]="searchKey" placeholder="Ricerca" autocomplete="off" (keyup)="applyFilter()">
+        <!--MatSuffix dice che è 'parte' del controllo Input-->
+        <button mat-button matSuffix mat-icon-button aria-label="pulisci" *ngIf = "searchKey" (click)="onSearchClear()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+</div>
 <div class="mat-elevation-z8">
     <mat-table [dataSource]= "anagraficaClienti" matSort>
         <!--Quelle che seguono sono le definizioni di ogni colonna-->
