@@ -27,7 +27,7 @@ import { MatSnackBarModule} from '@angular/material/snack-bar'
 import { MatTableModule} from '@angular/material/table'
 import { MatPaginatorModule} from '@angular/material/paginator'
 import { MatSortModule} from '@angular/material/sort'
-
+import { MatToolbarModule} from '@angular/material/toolbar'
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment'
@@ -70,6 +70,7 @@ import { AnagraficaClientiComponent } from './clienti/anagrafica-clienti/anagraf
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatToolbarModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     ReactiveFormsModule
@@ -81,6 +82,7 @@ import { AnagraficaClientiComponent } from './clienti/anagrafica-clienti/anagraf
   bootstrap: [AppComponent],
   entryComponents: [
     DialogEvent,
+    ClienteComponent,
     AppComponent
   ]
 })

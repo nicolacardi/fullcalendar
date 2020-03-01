@@ -86,6 +86,11 @@ snack-bar-container.success {
     color: #fff;
 }
 
+snack-bar-container.warn {
+    background-color: #f54545;
+    color: #fff;
+}
+
 snack-bar-container.notification simple-snack-bar {
     font-size: 14px !important;
     
@@ -128,3 +133,16 @@ mat-footer-row mat-cell{
     height: 32px;
     width: 32px;
 }
+
+
+.mat-toolbar-container{
+    position: relative !important;
+}
+
+.mat-dialog-close {
+    position: absolute !important;
+
+    right: 10px !important;
+
+}
+

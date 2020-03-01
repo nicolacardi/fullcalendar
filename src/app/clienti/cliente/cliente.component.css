@@ -4,14 +4,13 @@ form.normal-form {
 }
 
 .controles-container > * {
-    width: 50%;
-    margin-left: 10%;
-    margin-right: 10%;
-    padding: 0px;
+    margin: auto !important;
+    width: 220px;
 }
 
 .add-bottom-padding {
     padding-bottom: 10px;
+    text-align: center;
 }
 
 mat-radio-group mat-radio-button {
@@ -20,4 +19,8 @@ mat-radio-group mat-radio-button {
 
 .button-row button {
         margin: 5px;
+}
+
+.normal-form {
+    width: 250px !important;
 }

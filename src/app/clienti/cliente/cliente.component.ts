@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ClienteService } from '../../shared/cliente.service'
 import { NotificationsService } from '../../shared/notifications.service'
+import { MatDialogRef } from '@angular/material/dialog';
+
+
 @Component({
   selector: 'app-cliente',
   templateUrl: './cliente.component.html',
@@ -8,7 +11,8 @@ import { NotificationsService } from '../../shared/notifications.service'
 })
 export class ClienteComponent implements OnInit {
 
-  constructor(public service: ClienteService, public notification: NotificationsService) { }
+  constructor(public service: ClienteService, public notification: NotificationsService,
+  public dialogRef: MatDialogRef<ClienteComponent>) { }
 
   ngOnInit(): void {
       this.service.getClienti();
@@ -30,10 +34,21 @@ export class ClienteComponent implements OnInit {
 
   onSubmit(){
     if (this.service.form.valid) {
-      this.service.insertCliente(this.service.form.value);
+      if(!this.service.form.get('$key').value){
+        this.service.insertCliente(this.service.form.value);
+      } else { 
+        this.service.updateCliente(this.service.form.value);
+      }
       this.service.form.reset();
       this.service.initializeFormGroup()
     } 
     this.notification.success('>> Record Inserito!');
+    this.onCloseDialog();
+  }
+
+  onCloseDialog(){
+    this.service.form.reset();
+    this.service.initializeFormGroup();
+    this.dialogRef.close();
   }
 }

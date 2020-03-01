@@ -19,12 +19,11 @@ export class ClienteService {
       name: cliente.name,
       surname: cliente.surname,
       email: cliente.email,
-      gender: cliente.gender,
       birthdate: cliente.birthdate,
-      typeEnrol: cliente.type,
       address: cliente.address,
       city: cliente.city,
       mobile: cliente.mobile,
+      gender: cliente.gender,
       fattElettronica: cliente.fattElettronica
     })
   }
@@ -35,12 +34,11 @@ export class ClienteService {
       name: cliente.name,
       surname: cliente.surname,
       email: cliente.email,
-      gender: cliente.gender,
       birthdate: cliente.birthdate,
-      type: cliente.type,
       address: cliente.address,
       city: cliente.city,
       mobile: cliente.mobile,
+      gender: cliente.gender,
       fattElettronica: cliente.fattElettronica
     });
   }
@@ -57,13 +55,12 @@ export class ClienteService {
     $key: new FormControl(null), //valore di default null
     name: new FormControl('', Validators.required),
     surname: new FormControl('', Validators.required),
-    email: new FormControl('', Validators.email),
-    gender: new FormControl(1),
     birthdate: new FormControl (''),
-    type: new FormControl(0), //se privato / azienda /associazione ecc
     address: new FormControl(''),
     city: new FormControl(''),
     mobile: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    email: new FormControl('', Validators.email),
+    gender: new FormControl('M'),
     fattElettronica: new FormControl('false')
   });
 
@@ -72,16 +69,17 @@ export class ClienteService {
     $key: null,
     name: '',
     surname: '',
-    email: '',
-    gender: 1,
     birthdate: '',
-    type: 0,
     address: '',
     city: '',
     mobile: '',
+    email: '',
+    gender: 'M',
     fattElettronica: false
     });
   }
 
-
+  populateForm(cliente){
+    this.form.setValue(cliente);
+  }
 }
