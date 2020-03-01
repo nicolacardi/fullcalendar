@@ -90,3 +90,12 @@ snack-bar-container.notification simple-snack-bar {
     font-size: 14px !important;
     
 }
+
+.hide {
+    display:none;
+}
+
+mat-footer-row mat-cell{
+    justify-content: center;
+    font-style: italic;
+}

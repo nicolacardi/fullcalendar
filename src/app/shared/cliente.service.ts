@@ -21,7 +21,6 @@ export class ClienteService {
       email: cliente.email,
       gender: cliente.gender,
       birthdate: cliente.birthdate,
-      enrolDate: cliente.birthdate,
       typeEnrol: cliente.type,
       address: cliente.address,
       city: cliente.city,

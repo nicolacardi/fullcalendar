@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from '@angular/fire/firestore';  //firestore
 import { ClienteService } from '../../shared/cliente.service'
 import { MatTableDataSource } from '@angular/material/table'
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-anagrafica-clienti',
@@ -12,7 +14,11 @@ export class AnagraficaClientiComponent implements OnInit {
 
   constructor(private service: ClienteService) { }
   anagraficaClienti: MatTableDataSource<any>;
-  displayedColumns: string[] = ['name'];
+  displayedColumns: string[] = ['name', 'surname', 'email', 'gender', 'birthDate', 'address', 'city', 'mobile', 'actions'];
+
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
   ngOnInit(): void {
     this.service.getClienti().subscribe(
       list =>{
@@ -24,6 +30,8 @@ export class AnagraficaClientiComponent implements OnInit {
           };
         });
         this.anagraficaClienti = new MatTableDataSource (array);
+        this.anagraficaClienti.sort = this.sort;
+        this.anagraficaClienti.paginator = this.paginator;
       }
     );
 

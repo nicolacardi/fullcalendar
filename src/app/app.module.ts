@@ -25,6 +25,8 @@ import { MatRadioModule } from '@angular/material/radio'
 import { MatSelectModule } from '@angular/material/select'
 import { MatSnackBarModule} from '@angular/material/snack-bar'
 import { MatTableModule} from '@angular/material/table'
+import { MatPaginatorModule} from '@angular/material/paginator'
+import { MatSortModule} from '@angular/material/sort'
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -66,6 +68,8 @@ import { AnagraficaClientiComponent } from './clienti/anagrafica-clienti/anagraf
     MatSelectModule,
     MatSnackBarModule,
     MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     ReactiveFormsModule

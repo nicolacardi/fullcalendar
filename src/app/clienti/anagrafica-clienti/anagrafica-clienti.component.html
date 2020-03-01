@@ -1,10 +1,65 @@
 <div class="mat-elevation-z8">
-    <mat-table [dataSource]= "anagraficaClienti">
+    <mat-table [dataSource]= "anagraficaClienti" matSort>
+        <!--Quelle che seguono sono le definizioni di ogni colonna-->
+        <!--necessarie ma non sufficienti per mostrarle-->
+        <!--E' l'array displayedColumns (v.sotto) che dice in che ordine e quali colonne mostrare-->
         <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-            <mat-cell *matCellDef="let element">{{element|json}}</mat-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Nome</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
         </ng-container>
+        <ng-container matColumnDef="surname">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Cognome</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.surname}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="email">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>e-mail</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.email}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="gender">
+            <mat-header-cell *matHeaderCellDef>Genere</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.gender}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="birthDate">
+            <mat-header-cell *matHeaderCellDef>Data di Nascita</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.birthDate}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="address">
+            <mat-header-cell *matHeaderCellDef>Indirizzo</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.address}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="city">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Città</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.city}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="mobile">
+            <mat-header-cell *matHeaderCellDef>Telefono</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.mobile}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <button mat-icon-button><mat-icon>launch</mat-icon></button>
+                <button mat-icon-button><mat-icon color="warn">delete_outline</mat-icon></button>
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="loading">
+            <mat-cell *matFooterCellDef colspan="6">
+                Caricamento dati...
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="noData">
+            <mat-cell *matFooterCellDef colspan="6">
+                Nessun dato.
+            </mat-cell>
+        </ng-container>
+        <!--INTESTAZIONE DI RIGA:-->
+        <!--NB E' l'array displayedColumns che dice in che ordine e quali colonne mostrare-->
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <!--BODY-->
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':anagraficaClienti!=null}"></mat-footer-row>
+        <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(anagraficaClienti!=null && anagraficaClienti.data.length==0)}"></mat-footer-row>
+
     </mat-table>
+    <mat-paginator [pageSizeOptions]="[5,10,25,100]" [pageSize]="5" showFirstLastButtons></mat-paginator>
 </div> 
