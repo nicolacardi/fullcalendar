@@ -6,12 +6,8 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument}
   providedIn: 'root'
 })
 export class ClienteService {
-
-  constructor(private afs:AngularFirestore) { }
-
   listaclienti: AngularFirestoreCollection<any>;
-
-
+  constructor(private afs:AngularFirestore) { }
 
   getClienti(){
     this.listaclienti = this.afs.collection('db-clienti');
@@ -25,7 +21,8 @@ export class ClienteService {
       email: cliente.email,
       gender: cliente.gender,
       birthdate: cliente.birthdate,
-      type: cliente.type,
+      enrolDate: cliente.birthdate,
+      typeEnrol: cliente.type,
       address: cliente.address,
       city: cliente.city,
       mobile: cliente.mobile,

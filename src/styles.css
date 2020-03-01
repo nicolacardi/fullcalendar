@@ -80,3 +80,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .fc-sat { background-color:rgb(241, 241, 241);  }
 
 .fc-week-number { background-color:rgb(241, 241, 241); }
+
+snack-bar-container.success {
+    background-color: #5cb85c;
+    color: #fff;
+}
+
+snack-bar-container.notification simple-snack-bar {
+    font-size: 14px !important;
+    
+}

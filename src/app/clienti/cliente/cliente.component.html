@@ -1,7 +1,6 @@
 <!--Questo non è un template driven come la dialog calendar ma un reactive form!-->
 <form [formGroup]="service.form" class="normal-form" (submit)="onSubmit()">
-    <mat-grid-list cols="2" rowHeight="500px">
-        <mat-grid-tile>
+
             <div class="controles-container">
                 <input type="hidden" formControlName="$key">
                 <mat-form-field>
@@ -35,27 +34,24 @@
                     <input formControlName="email" matInput placeholder="es. 'mario.rossi@yahoo.it'">
                     <mat-error>formato email non valido</mat-error>
                 </mat-form-field>
-            </div>
-        </mat-grid-tile>
-        <mat-grid-tile>
-            <div class="controles-container">
+
                 <div class="add-bottom-padding">
                     <mat-radio-group formControlName="gender">
                         <mat-radio-button value="1">M</mat-radio-button>
                         <br>
                         <mat-radio-button value="2">F</mat-radio-button>
-                        <br>
-                        <mat-radio-button value="3">Altro</mat-radio-button>
                     </mat-radio-group>
                 </div>
+
                 <mat-form-field>
-                    <mat-select formControlName="type" placeholder="tipo">
+                    <mat-select formControlName="typeEnrol" placeholder="Cliente dopo...">
                         <mat-option>None</mat-option>
                         <ng-container *ngFor="let tipoCliente of tipiCliente">
                             <mat-option value="{{tipoCliente.id}}">{{tipoCliente.value}}</mat-option>
                         </ng-container>
                     </mat-select>
                 </mat-form-field>
+
                 <div class="add-bottom-padding">
                     <mat-checkbox formControlName="fattElettronica">
                         Ha fatturazione Elettronica
@@ -66,6 +62,5 @@
                     <button mat-raised-button color="warn" type="submit" (click)="onClear()">Pulisci</button>
                 </div>
             </div> 
-        </mat-grid-tile>
-    </mat-grid-list>
+
 </form>
