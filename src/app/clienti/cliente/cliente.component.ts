@@ -15,7 +15,7 @@ export class ClienteComponent implements OnInit {
   public dialogRef: MatDialogRef<ClienteComponent>) { }
 
   ngOnInit(): void {
-      this.service.getClienti();
+    this.service.getClienti();
   }
 
   onClear() {

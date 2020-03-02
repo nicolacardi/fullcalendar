@@ -17,7 +17,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatNativeDateModule, MAT_DATE_LOCALE} from '@angular/material/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list'
@@ -36,6 +36,7 @@ import { ClientiComponent } from './clienti/clienti.component';
 import { ClienteComponent } from './clienti/cliente/cliente.component';
 import { ClienteService } from './shared/cliente.service';
 import { AnagraficaClientiComponent } from './clienti/anagrafica-clienti/anagrafica-clienti.component'
+
 
 @NgModule({
   declarations: [
@@ -76,6 +77,8 @@ import { AnagraficaClientiComponent } from './clienti/anagrafica-clienti/anagraf
     ReactiveFormsModule
   ],
   providers: [ 
+
+    
     {provide: MAT_DATE_LOCALE, useValue: 'it-IT'},
     ClienteService
 ],

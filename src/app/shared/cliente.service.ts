@@ -14,7 +14,7 @@ export class ClienteService {
   constructor(private afs:AngularFirestore) { }
 
   getClienti(){
-    this.listaclienti = this.afs.collection('db-clienti');
+    this.listaclienti = this.afs.collection('db-clienti' , ref => ref.orderBy('surname'));
     return this.listaclienti.snapshotChanges();
 
     // return this.listaclienti.snapshotChanges()

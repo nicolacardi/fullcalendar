@@ -16,12 +16,12 @@
             <input formControlName="surname" matInput placeholder="Cognome*">
             <mat-error>campo richiesto</mat-error>
         </mat-form-field>
-        <mat-form-field>
-            <mat-label>Data di Nascita</mat-label>
-            <input formControlName="birthdate" matInput [matDatepicker]="picker" placeholder="gg/mm/aaaa">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
+    <mat-form-field>
+        <mat-label>Data di Nascita</mat-label>
+        <input formControlName="birthdate" matInput [matDatepicker]="picker" placeholder="gg/mm/aaaa">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
         <mat-form-field>
             <input formControlName="address" matInput placeholder="Indirizzo (Via/Piazza) e N°">
         </mat-form-field>
@@ -52,7 +52,7 @@
         </div> 
         <div class="button-row">
             <button mat-raised-button color="primary" type="submit" [disabled]="service.form.invalid">Salva</button>
-            <button mat-raised-button color="warn" type="submit" (click)="onClear()">Pulisci</button>
+            <!-- <button mat-raised-button color="warn" type="submit" (click)="onClear()">Pulisci</button> -->
         </div>
     </div> 
 </form>
