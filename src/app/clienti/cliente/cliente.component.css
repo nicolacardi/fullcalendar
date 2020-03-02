@@ -24,3 +24,12 @@ mat-radio-group mat-radio-button {
 .normal-form {
     width: 250px !important;
 }
+
+.button-row {
+    text-align: center;
+    padding: 0px;
+}
+
+.button-save {
+    width: 80%;
+}

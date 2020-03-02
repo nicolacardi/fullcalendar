@@ -1,7 +1,7 @@
 <mat-toolbar class="mat-toolbar-container">
     <span>{{service.form.controls['$key'].value?"Modifica cliente":"Nuovo Cliente"}}</span>
     <span class="fx spacer"></span>
-    <button class="mat-dialog-close" mat-button (click)="onCloseDialog()" tabindex ="-1" ><mat-icon>clear</mat-icon></button>
+    <button class="mat-dialog-close" mat-button (click)="onCloseDialog()" tabindex ="-1" style="outline: 0" ><mat-icon>clear</mat-icon></button>
 </mat-toolbar>
 
 <!--Questo non è un template driven come la dialog calendar ma un reactive form!-->
@@ -51,8 +51,9 @@
             </mat-checkbox>
         </div> 
         <div class="button-row">
-            <button mat-raised-button color="primary" type="submit" [disabled]="service.form.invalid">Salva</button>
-            <!-- <button mat-raised-button color="warn" type="submit" (click)="onClear()">Pulisci</button> -->
+            <!-- <button mat-raised-button color="warn" type="submit" (click)="onCloseDialog()">Annulla</button> -->
+            <button class="button-save" mat-raised-button color="primary" type="submit" [disabled]="service.form.invalid" >Salva</button>
+
         </div>
     </div> 
 </form>

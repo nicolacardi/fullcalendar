@@ -50,8 +50,8 @@
         <ng-container matColumnDef="actions">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let element">
-                <button mat-icon-button (click)="onEdit(element)"><mat-icon>launch</mat-icon></button>
-                <button mat-icon-button (click)="onDelete(element.$key)"><mat-icon color="warn">delete_outline</mat-icon></button>
+                <button mat-icon-button (click)="onEdit(element)" style="outline: 0"><mat-icon>launch</mat-icon></button>
+                <button mat-icon-button (click)="onDelete(element.$key)" style="outline: 0"><mat-icon color="warn">delete_outline</mat-icon></button>
             </mat-cell>
         </ng-container>
         <ng-container matColumnDef="loading">
