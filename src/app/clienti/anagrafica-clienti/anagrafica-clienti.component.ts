@@ -7,6 +7,7 @@ import { MatDialog, MatDialogConfig} from '@angular/material/dialog';    //mater
 import { ClienteComponent } from '../cliente/cliente.component';
 import { NotificationsService } from 'src/app/shared/notifications.service';
 import { ClienteTipo } from "../../models/models";
+import { DialogService } from 'src/app/shared/dialog.service';
 
 @Component({
   selector: 'app-anagrafica-clienti',
@@ -15,7 +16,12 @@ import { ClienteTipo } from "../../models/models";
 })
 export class AnagraficaClientiComponent implements OnInit {
 
-  constructor(private service: ClienteService, private dialog: MatDialog, private notification: NotificationsService) { }
+  constructor(
+    private service: ClienteService,
+    private dialog: MatDialog,
+    private notification: NotificationsService,
+    private dialogService: DialogService ) { }
+
   anagraficaClienti: MatTableDataSource<any>;
   displayedColumns: string[] = ['name', 'surname', 'email', 'gender', 'birthdate', 'address', 'city', 'mobile', 'actions'];
 
@@ -86,10 +92,15 @@ export class AnagraficaClientiComponent implements OnInit {
   }
 
   onDelete($key){
-    if(confirm('Sei sicuro di cancellare questo record?')) {
-      this.service.deleteCliente($key);
-      this.notification.warn(">> Record Cancellato!")
-    }
+
+      this.dialogService.openConfirmDialog('Vuoi cancellare questo cliente?')
+      .afterClosed().subscribe(res => {
+          if(res){
+            this.service.deleteCliente($key);
+            this.notification.warn(">> Record Cancellato!")
+          }
+      });
+
   }
 
 }

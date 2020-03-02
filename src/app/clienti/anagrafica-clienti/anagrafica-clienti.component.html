@@ -1,5 +1,5 @@
 <div class="search-div">
-    <button mat-raised-button (click)="onCreate()">
+    <button mat-raised-button (click)="onCreate()" style="outline:0">
         <mat-icon>add</mat-icon>Create
     </button>
     <mat-form-field class="search-form-field" floatLabel="never">
@@ -66,7 +66,7 @@
         </ng-container>
         <!--INTESTAZIONE DI RIGA:-->
         <!--NB E' l'array displayedColumns che dice in che ordine e quali colonne mostrare-->
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-header-row *matHeaderRowDef="displayedColumns" style="outline: 0"></mat-header-row>
         <!--BODY-->
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':anagraficaClienti!=null}"></mat-footer-row>

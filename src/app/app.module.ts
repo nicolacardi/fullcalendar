@@ -35,7 +35,8 @@ import { environment } from '../environments/environment'
 import { ClientiComponent } from './clienti/clienti.component';
 import { ClienteComponent } from './clienti/cliente/cliente.component';
 import { ClienteService } from './shared/cliente.service';
-import { AnagraficaClientiComponent } from './clienti/anagrafica-clienti/anagrafica-clienti.component'
+import { AnagraficaClientiComponent } from './clienti/anagrafica-clienti/anagrafica-clienti.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component'
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { AnagraficaClientiComponent } from './clienti/anagrafica-clienti/anagraf
     AssistenzaComponent,
     ClientiComponent,
     ClienteComponent,
-    AnagraficaClientiComponent
+    AnagraficaClientiComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -86,7 +88,8 @@ import { AnagraficaClientiComponent } from './clienti/anagrafica-clienti/anagraf
   entryComponents: [
     DialogEvent,
     ClienteComponent,
-    AppComponent
+    AppComponent,
+    ConfirmDialogComponent
   ]
 })
 export class AppModule {
