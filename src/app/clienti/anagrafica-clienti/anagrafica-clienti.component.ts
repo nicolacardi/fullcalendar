@@ -6,6 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog, MatDialogConfig} from '@angular/material/dialog';    //material
 import { ClienteComponent } from '../cliente/cliente.component';
 import { NotificationsService } from 'src/app/shared/notifications.service';
+import { ClienteTipo } from "../../models/models";
 
 @Component({
   selector: 'app-anagrafica-clienti',
@@ -16,21 +17,28 @@ export class AnagraficaClientiComponent implements OnInit {
 
   constructor(private service: ClienteService, private dialog: MatDialog, private notification: NotificationsService) { }
   anagraficaClienti: MatTableDataSource<any>;
-  displayedColumns: string[] = ['name', 'surname', 'email', 'gender', 'birthDate', 'address', 'city', 'mobile', 'actions'];
+  displayedColumns: string[] = ['name', 'surname', 'email', 'gender', 'birthdate', 'address', 'city', 'mobile', 'actions'];
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   searchKey: string;
 
   ngOnInit(): void {
+
     this.service.getClienti().subscribe(
       list =>{
         let array = list.map(item =>{
           return {
             $key : item.payload.doc.id,
-            ...item.payload.doc.data()
+            ...item.payload.doc.data() as ClienteTipo
           };
         });
+        
+        // array.forEach(element => {
+        //   console.log(element.birthdate)
+        //   element.birthdate = element.birthdate.toDate();
+        // });
+
         this.anagraficaClienti = new MatTableDataSource (array);
         this.anagraficaClienti.sort = this.sort;
         this.anagraficaClienti.paginator = this.paginator;
@@ -65,7 +73,10 @@ export class AnagraficaClientiComponent implements OnInit {
 
 
   onEdit(row){
-    console.log (row);
+     console.log(row);
+     console.log (row.birthdate);
+
+
     this.service.populateForm(row);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true; //non si chiude con ESC nè cliccando fuori dalla finestra

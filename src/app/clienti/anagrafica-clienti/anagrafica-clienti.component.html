@@ -31,9 +31,9 @@
             <mat-header-cell *matHeaderCellDef>Genere</mat-header-cell>
             <mat-cell *matCellDef="let element">{{element.gender}}</mat-cell>
         </ng-container>
-        <ng-container matColumnDef="birthDate">
+        <ng-container matColumnDef="birthdate">
             <mat-header-cell *matHeaderCellDef>Data di Nascita</mat-header-cell>
-            <mat-cell *matCellDef="let element">{{element.birthdate}}</mat-cell>
+            <mat-cell *matCellDef="let element">  {{element.birthdate == '' ? '' : element.birthdate.toDate() | date: 'dd/MM/yyyy'}}</mat-cell>
         </ng-container>
         <ng-container matColumnDef="address">
             <mat-header-cell *matHeaderCellDef>Indirizzo</mat-header-cell>

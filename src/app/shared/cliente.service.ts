@@ -4,16 +4,19 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument}
 import { map } from 'rxjs/operators'  
 import { ClienteTipo } from '../models/models'               //interface ClienteTipo
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class ClienteService {
   listaclienti: AngularFirestoreCollection<any>;
+  
   constructor(private afs:AngularFirestore) { }
 
   getClienti(){
     this.listaclienti = this.afs.collection('db-clienti');
     return this.listaclienti.snapshotChanges();
+
     // return this.listaclienti.snapshotChanges()
     // .pipe(map(
     //   changes => {
@@ -99,6 +102,13 @@ export class ClienteService {
   }
 
   populateForm(cliente){
+
+
     this.form.setValue(cliente);
+    //siccome la setValue passa l'intero oggetto, si tratta di passare al form POI la data riformattata
+    //altrimenti viene null in quanto è un timestamp. Ho provato di tutto per fare diversamente....
+    //questo workaround sembra l'unico accettato
+    if (cliente.birthdate != '') {this.form.controls['birthdate'].setValue(cliente.birthdate.toDate())};
+
   }
 }
