@@ -30,12 +30,14 @@
     "@fullcalendar/list": "^4.4.0",
     "@fullcalendar/timegrid": "^4.4.0",
     "bootstrap": "^4.4.1",
-    "firebase": "^7.9.1",
+    "firebase": "^7.9.3",
+    "firebaseui": "^4.4.0",
     "jquery": "^1.12.4",
     "mat-color-picker": "^1.4.3",
     "moment": "^2.24.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
+    "ui": "^0.2.4",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {

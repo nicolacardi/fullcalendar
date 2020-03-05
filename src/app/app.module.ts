@@ -38,7 +38,7 @@ import { ClienteService } from './shared/cliente.service';
 import { AnagraficaClientiComponent } from './clienti/anagrafica-clienti/anagrafica-clienti.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { NgUnivComponent } from './ng-univ/ng-univ.component';
-import { NgUniv2Component } from './ng-univ2/ng-univ2.component'
+import { NgUniv2Component } from './ng-univ2/ng-univ2.component';
 
 
 @NgModule({
