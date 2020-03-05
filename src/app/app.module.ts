@@ -36,7 +36,9 @@ import { ClientiComponent } from './clienti/clienti.component';
 import { ClienteComponent } from './clienti/cliente/cliente.component';
 import { ClienteService } from './shared/cliente.service';
 import { AnagraficaClientiComponent } from './clienti/anagrafica-clienti/anagrafica-clienti.component';
-import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component'
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { NgUnivComponent } from './ng-univ/ng-univ.component';
+import { NgUniv2Component } from './ng-univ2/ng-univ2.component'
 
 
 @NgModule({
@@ -48,7 +50,9 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     ClientiComponent,
     ClienteComponent,
     AnagraficaClientiComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    NgUnivComponent,
+    NgUniv2Component
   ],
   imports: [
     BrowserModule,

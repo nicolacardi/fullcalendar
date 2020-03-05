@@ -14,6 +14,7 @@ export interface EventType {
   }
   
 export interface ClienteTipo {
+  id: string;
   name: string,
   surname: string,
   email: string,

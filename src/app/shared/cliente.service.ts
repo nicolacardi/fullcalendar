@@ -4,7 +4,6 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument}
 import { map } from 'rxjs/operators'  
 import { ClienteTipo } from '../models/models'               //interface ClienteTipo
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -14,6 +13,7 @@ export class ClienteService {
   constructor(private afs:AngularFirestore) { }
 
   getClienti(){
+
     this.listaclienti = this.afs.collection('db-clienti' , ref => ref.orderBy('surname'));
     return this.listaclienti.snapshotChanges();
 
