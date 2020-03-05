@@ -27,6 +27,8 @@ export class NgUniv2Component implements OnInit {
     this.db.collection('db-clienti').snapshotChanges() 
       .subscribe(val=>console.log(val));
 
+
+      //molto bene, eccomi qua
   }
 
 }
