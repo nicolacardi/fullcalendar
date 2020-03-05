@@ -1,5 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 
+/* AS - Auth  ( il simbolo ~ significa che il css si deve trovare sotto la dir node_modules ) */
+/* ATTENZIONE: manca! da dove minchia lo tiro giuù???? */
+@import "~firebaseui/dist/firebaseui.css";
+
+
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
