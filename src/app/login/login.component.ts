@@ -17,30 +17,22 @@ export class LoginComponent implements OnInit, OnDestroy {
     constructor(private afAuth: AngularFireAuth,
                 private router:Router,
                 private ngZone: NgZone) {
-
     }
 
     ngOnInit() {
-
         const uiConfig = {
             signInOptions: [
                 firebase.auth.GoogleAuthProvider.PROVIDER_ID,
                 firebase.auth.EmailAuthProvider.PROVIDER_ID
             ],
             callbacks: {
-
                 signInSuccessWithAuthResult: this
                     .onLoginSuccessful
                     .bind(this)
             }
-
         };
-
         this.ui = new firebaseui.auth.AuthUI(this.afAuth.auth);
-
         this.ui.start('#firebaseui-auth-container', uiConfig);
-
-
     }
 
     ngOnDestroy() {
