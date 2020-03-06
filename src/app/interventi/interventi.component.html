@@ -1,0 +1,23 @@
+
+
+<mat-card *ngFor="let intervento of interventi" class="intervento-card mat-elevation-z2">
+
+    <mat-card-header>
+
+        <mat-card-title>Data Intervento: {{intervento.DataIntervento.toDate() | date: 'dd/MM/yyyy'}}</mat-card-title>
+
+    </mat-card-header>
+
+    <mat-card-content>
+        Operatore: {{intervento.Operatore}}<br>
+        Valore Ricambi: {{intervento.ValoreRicambi}}<br>
+       Risolutivo: <mat-checkbox [checked]="intervento.Risolutivo"></mat-checkbox>
+    </mat-card-content>
+
+<!-- <div style="margin-top: 50px">Interventi.component 
+    (chiamato da assistenza component riceve da quello una lista di Observables
+     "interventi" con la sintassi[interventi]="interventi$ | async" che fa COSI' la 
+     subscribe "nell'html")
+     e li passa a una variabile. Qui in Interventi.component mettiamo interventi in un ngFor
+</div> -->
+</mat-card>

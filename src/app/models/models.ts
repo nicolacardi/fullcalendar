@@ -26,7 +26,14 @@ export interface ClienteTipo {
   fattElettronica?: boolean,
 }
 
-
+export interface InterventoTipo {
+  id: string;
+  DataIntervento: Date,
+  Operatore: string,
+  Risolutivo: boolean,
+  Tipo: string,
+  ValoreRicambi: number
+}
 // export const colours = [
 //   {"aliceblue":"#f0f8ff"}, 
 //   {"antiquewhite":"#faebd7"},

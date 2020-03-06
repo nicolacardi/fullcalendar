@@ -1,10 +1,12 @@
-<button (click)="addEmployee()">addemployee</button>
-<table>
-    <caption>Employees Added</caption>
-    <tr *ngFor=" let employee of employees | async">
-        <td>
-            {{employee.firstname}}
-        </td>
-    </tr>
 
-</table>
+
+<mat-tab-group>
+    <mat-tab label="Interventi meccanici">
+        <app-interventi [interventi]="interventiMeccanici | async">
+        </app-interventi>
+    </mat-tab>
+    <mat-tab label="Interventi elettrici">
+        <app-interventi [interventi]="interventiElettrici | async">
+        </app-interventi>
+    </mat-tab>
+</mat-tab-group>

@@ -28,8 +28,11 @@ import { MatTableModule} from '@angular/material/table'
 import { MatPaginatorModule} from '@angular/material/paginator'
 import { MatSortModule} from '@angular/material/sort'
 import { MatToolbarModule} from '@angular/material/toolbar'
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatCardModule } from '@angular/material/card';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+
 import { environment } from '../environments/environment'
 
 import { ClientiComponent } from './clienti/clienti.component';
@@ -39,6 +42,7 @@ import { AnagraficaClientiComponent } from './clienti/anagrafica-clienti/anagraf
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { NgUnivComponent } from './ng-univ/ng-univ.component';
 import { NgUniv2Component } from './ng-univ2/ng-univ2.component';
+import { InterventiComponent } from './interventi/interventi.component';
 
 
 @NgModule({
@@ -52,7 +56,8 @@ import { NgUniv2Component } from './ng-univ2/ng-univ2.component';
     AnagraficaClientiComponent,
     ConfirmDialogComponent,
     NgUnivComponent,
-    NgUniv2Component
+    NgUniv2Component,
+    InterventiComponent,
   ],
   imports: [
     BrowserModule,
@@ -78,6 +83,8 @@ import { NgUniv2Component } from './ng-univ2/ng-univ2.component';
     MatPaginatorModule,
     MatSortModule,
     MatToolbarModule,
+    MatTabsModule,
+    MatCardModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     ReactiveFormsModule

@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'calendario', component: CalendarComponent },
   { path: 'anguniv', component: NgUnivComponent },
   { path: 'anguniv2', component: NgUniv2Component },
-  //{ path: 'cliente', component: ClientiComponent },
+  { path: 'assistenza', component: AssistenzaComponent },
   { path: 'anagrafica clienti', component: AnagraficaClientiComponent }
   
 ];
