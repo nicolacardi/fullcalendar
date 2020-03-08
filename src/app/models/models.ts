@@ -32,7 +32,8 @@ export interface InterventoTipo {
   Operatore: string,
   Risolutivo: boolean,
   Tipo: string,
-  ValoreRicambi: number
+  ValoreRicambi: number,
+  MacchinaImg: string
 }
 // export const colours = [
 //   {"aliceblue":"#f0f8ff"}, 

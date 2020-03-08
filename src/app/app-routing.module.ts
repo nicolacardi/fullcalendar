@@ -6,6 +6,9 @@ import { ClientiComponent } from './clienti/clienti.component';
 import { AnagraficaClientiComponent } from './clienti/anagrafica-clienti/anagrafica-clienti.component';
 import { NgUnivComponent } from './ng-univ/ng-univ.component';
 import { NgUniv2Component } from './ng-univ2/ng-univ2.component';
+import { InterventoComponent } from './intervento/intervento.component';
+import { InterventoResolver } from "./shared/intervento.resolver";
+
 
 const routes: Routes = [
   { path: '', component: CalendarComponent },
@@ -13,8 +16,13 @@ const routes: Routes = [
   { path: 'anguniv', component: NgUnivComponent },
   { path: 'anguniv2', component: NgUniv2Component },
   { path: 'assistenza', component: AssistenzaComponent },
-  { path: 'anagrafica clienti', component: AnagraficaClientiComponent }
-  
+  { path: 'anagrafica clienti', component: AnagraficaClientiComponent },
+  { path: 'assistenza/:NIntervento',
+    component: InterventoComponent,
+    resolve: {
+      intervento: InterventoResolver
+    }
+  }
 ];
 
 @NgModule({

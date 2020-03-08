@@ -43,7 +43,9 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 import { NgUnivComponent } from './ng-univ/ng-univ.component';
 import { NgUniv2Component } from './ng-univ2/ng-univ2.component';
 import { InterventiComponent } from './interventi/interventi.component';
+import { InterventoComponent } from './intervento/intervento.component';
 
+import { InterventoResolver } from "./shared/intervento.resolver";
 
 @NgModule({
   declarations: [
@@ -58,6 +60,7 @@ import { InterventiComponent } from './interventi/interventi.component';
     NgUnivComponent,
     NgUniv2Component,
     InterventiComponent,
+    InterventoComponent,
   ],
   imports: [
     BrowserModule,
@@ -90,10 +93,9 @@ import { InterventiComponent } from './interventi/interventi.component';
     ReactiveFormsModule
   ],
   providers: [ 
-
-    
     {provide: MAT_DATE_LOCALE, useValue: 'it-IT'},
-    ClienteService
+    ClienteService,
+    InterventoResolver
 ],
   bootstrap: [AppComponent],
   entryComponents: [

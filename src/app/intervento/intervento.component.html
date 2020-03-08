@@ -1,0 +1,7 @@
+<h1>Data Intervento: {{intervento?.DataIntervento.toDate() | date: 'dd/MM/yyyy'}}</h1>
+<div>
+    Operatore: {{intervento.Operatore}}<br>
+    Tipo di Intervento: {{intervento.Tipo}}<br>
+
+</div>
+<img mat-card-image [src]="intervento.MacchinaImg">
