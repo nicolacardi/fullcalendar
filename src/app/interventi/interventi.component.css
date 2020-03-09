@@ -1,9 +1,62 @@
+* { font-family: 'Titillium Web', sans-serif;}
+
+.intervento-card {
+    width: 40%;
+}
+
+@media screen and (max-width: 1200px) {
+    .intervento-card {
+        width: 60%
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+    .intervento-card {
+        width: 100%
+    }
+}
 
 
 .intervento-card {
-    margin: 20px 10px;
+    margin: 20px auto;
 }
 
 .mat-card-image {
     width: 100px;
+    position: absolute;
+    right:140px;
+    top: 30px;
+
+}
+
+.mat-card-avatar {
+    width: 100%;
+    text-align: center;
+}
+
+
+
+.mat-card-avatar img {
+    border-radius: 50px;
+    width: 50px;
+    /* position: absolute;
+    right:40px;
+    top: 30px; */
+}
+.mat-card-title {
+    margin-top: 20px;
+}
+
+
+
+.operatoreName{
+    margin-top: 5px;
+    font-size: 10px;
+    line-height: 10px;
+    text-align: center;
+}
+
+.operatore{
+    margin-top: -35px;
 }

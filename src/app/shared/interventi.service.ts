@@ -48,9 +48,14 @@ export class InterventiService {
             ...snap.payload.doc.data() as InterventoTipo
           }
         });
-        console.log(interventi);
+        //console.log(interventi);
         return interventi.length == 1 ? interventi[0]: undefined;
+        //la riga qui sopra serve nel caso in cui venissero ritornati
+        //per assurdo più record: in quel caso voglio undefined
+        //altrimenti voglio il primo
       }),
+      //L'observable viene trasmesso solo quando completo
+      //quindi devo "fermarlo" altrimenti resta "live" 
       first()
       )
     

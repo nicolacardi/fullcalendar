@@ -1,6 +1,13 @@
+* { font-family: 'Titillium Web', sans-serif;}
+
 .mat-card-image {
     margin-top: 20px;
-    width: 300px;
-    border-radius: 10px;
     border: 1px black solid;
+}
+
+.imgIntervento {
+    margin-top: 20px; 
+    border-radius: 2px;
+    text-align: center;
+    width: 250px;
 }

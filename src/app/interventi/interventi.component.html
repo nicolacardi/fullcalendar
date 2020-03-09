@@ -1,21 +1,30 @@
-
-
 <mat-card *ngFor="let intervento of interventi" class="intervento-card mat-elevation-z2">
 
     <mat-card-header>
-
-        <mat-card-title>Data Intervento: {{intervento.DataIntervento.toDate() | date: 'dd/MM/yyyy'}}</mat-card-title>
-
+        <mat-card-title>Data: {{intervento.DataIntervento.toDate() | date: 'dd/MM/yyyy'}}</mat-card-title>
     </mat-card-header>
     
-    <div style="position: absolute; right: 20px;top:30px;">
+    <!-- <div>
         <img mat-card-image [src]="intervento.MacchinaImg">
-    </div>
+    </div> -->
 
     <mat-card-content>
-        Operatore: {{intervento.Operatore}}<br>
-        Valore Ricambi: {{intervento.ValoreRicambi}}<br>
-        Risolutivo: <mat-checkbox [checked]="intervento.Risolutivo"></mat-checkbox>
+        <div class="row">
+            <div class="col-6">
+                Valore Ricambi: {{intervento.ValoreRicambi}} euro<br>
+                Modello Macchina: {{intervento.Modello}}<br>
+                Intervento Risolutivo: <mat-checkbox [checked]="intervento.Risolutivo"></mat-checkbox>
+            </div>
+            <div class="col-3" >
+            </div>
+            <div class="col-3" >
+                <div mat-card-avatar>
+                    <div class="operatoreName operatore">Operatore</div>
+                    <img class="mat-elevation-z8" style="border: grey 1px solid" [src]="intervento.OperatoreImg">
+                    <div class="operatoreName" >{{intervento.Operatore}}</div>
+                </div>
+            </div>
+        </div>
     </mat-card-content>
 
 <!-- <div style="margin-top: 50px">Interventi.component 
@@ -31,9 +40,7 @@
         MOSTRA
     </button>
 
-    <!-- <button mat-button class="mat-raised-button mat-accent">
-        Modifica
-    </button> -->
+
 
 </mat-card-actions>
 </mat-card>

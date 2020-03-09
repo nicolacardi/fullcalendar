@@ -13,7 +13,11 @@ export class InterventoResolver implements Resolve<InterventoTipo> {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<InterventoTipo> {
-        const NIntervento = route.paramMap.get('NIntervento');
+        const NIntervento = route.paramMap.get('NIntervento'); 
+        
+        //il valore di NIntervento viene preso dal routing, vedi file app.routing-module.ts
+        //a questo punto dentro NIntervento c'è una stringa
+        //che passo al service per ottenere il record
 
         return this.interventiService.findNIntervento(NIntervento);
 
