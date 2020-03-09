@@ -62,11 +62,12 @@ export class InterventiService {
   }
 
 
-  findRicambi(interventoID: string, pageNumber = 0, pageSize = 3) : Observable<RicambioTipo[]>{
+  findRicambi(interventoID: string, pageNumber: number, pageSize = 3) : Observable<RicambioTipo[]>{
+    //console.log(pageNumber)
     return this.db.collection(`db-interventi/${interventoID}/ricambi`,
-                ref => ref.orderBy('seqNo', 'asc')
+                ref => ref.orderBy('seqNo')
+                .startAfter(pageNumber * pageSize)
                 .limit(pageSize)
-                .startAfter(pageNumber *pageSize)
                 )
       .snapshotChanges()
       .pipe(map(snaps=>{

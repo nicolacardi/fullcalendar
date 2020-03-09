@@ -15,6 +15,7 @@ export class InterventoComponent implements OnInit {
   intervento: InterventoTipo;
   ricambi: RicambioTipo[];
   displayedColumns = ['seqNo', 'Pezzo', 'Descrizione', 'Valore']
+  lastPageLoaded = 0 ;
 
   constructor(private route: ActivatedRoute,
     private interventiService: InterventiService) { }
@@ -22,8 +23,19 @@ export class InterventoComponent implements OnInit {
   ngOnInit(): void {
     this.intervento =  this.route.snapshot.data['intervento'];
 
-    this.interventiService.findRicambi(this.intervento.id).subscribe(
+    this.interventiService.findRicambi(this.intervento.id, this.lastPageLoaded).subscribe(
       ricambi => this.ricambi = ricambi
+    );
+    
+  }
+
+  loadMore(){
+    this.lastPageLoaded++;
+
+    this.interventiService.findRicambi(this.intervento.id, this.lastPageLoaded)
+    .subscribe(
+      ricambi => this.ricambi = this.ricambi.concat(ricambi)
+      //ricambi => this.ricambi = ricambi
     );
   }
 

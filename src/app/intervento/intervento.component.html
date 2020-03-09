@@ -1,18 +1,17 @@
 <div style="text-align: center;">
-<h1 class="titolo">Data Intervento: {{intervento?.DataIntervento.toDate() | date: 'dd/MM/yyyy'}}</h1>
-<div>
-    Operatore: {{intervento.Operatore}}<br>
-    Tipo di Intervento: {{intervento.Tipo}}<br>
-    Modello Macchina: {{intervento.Modello}}
-</div>
+    <h1 class="titolo">Data Intervento: {{intervento?.DataIntervento.toDate() | date: 'dd/MM/yyyy'}}</h1>
+    <div>
+        Operatore: {{intervento.Operatore}}<br>
+        Tipo di Intervento: {{intervento.Tipo}}<br>
+        Modello Macchina: {{intervento.Modello}}
+    </div>
 
-<img class="imgIntervento mat-elevation-z8" [src]="intervento.MacchinaImg">
+    <img class="imgIntervento mat-elevation-z8" [src]="intervento.MacchinaImg">
 
-</div>
 <h1 class="titolo" >Elenco Ricambi</h1>
 <mat-table class="ricambi-table mat-elevation-z8" [dataSource]="ricambi">
 
-    <ng-container matColumnDef="seqNo">
+    <ng-container matColumnDef="seqNo" >
 
         <mat-header-cell *matHeaderCellDef>Codice</mat-header-cell>
 
@@ -20,7 +19,7 @@
 
     </ng-container>
 
-    <ng-container matColumnDef="Pezzo">
+    <ng-container matColumnDef="Pezzo" >
 
         <mat-header-cell *matHeaderCellDef>Pezzo</mat-header-cell>
 
@@ -29,7 +28,7 @@
 
     </ng-container>
 
-    <ng-container matColumnDef="Descrizione">
+    <ng-container matColumnDef="Descrizione" >
 
         <mat-header-cell *matHeaderCellDef>Descrizione</mat-header-cell>
 
@@ -38,9 +37,9 @@
 
     </ng-container>
 
-    <ng-container matColumnDef="Valore">
+    <ng-container matColumnDef="Valore" >
 
-        <mat-header-cell *matHeaderCellDef>Prezzo €</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef >Prezzo €</mat-header-cell>
 
         <mat-cell class="valore-cell"
                   *matCellDef="let ricambio">{{ricambio.Valore}}</mat-cell>
@@ -53,3 +52,8 @@
 
 </mat-table>
 
+<br>
+<button class="bottom-toolbar" mat-raised-button color="primary" (click)="loadMore()">...altri ricambi</button>
+
+
+</div>
