@@ -27,7 +27,7 @@ export interface ClienteTipo {
 }
 
 export interface InterventoTipo {
-  id: string;
+  id: string,
   DataIntervento: Date,
   Operatore: string,
   Risolutivo: boolean,
@@ -36,6 +36,13 @@ export interface InterventoTipo {
   MacchinaImg: string,
   OperatoreImg: string,
   Modello: string
+}
+
+export interface RicambioTipo {
+  seqNo: number,
+  Pezzo: string,
+  Valore: number,
+  Descrizione: string
 }
 // export const colours = [
 //   {"aliceblue":"#f0f8ff"}, 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { InterventoTipo } from '../models/models';
-import {ActivatedRoute} from '@angular/router';
+import { InterventoTipo, RicambioTipo } from '../models/models';
+import { ActivatedRoute } from '@angular/router';
+import { InterventiService } from '../shared/interventi.service';
 
 @Component({
   selector: 'app-intervento',
@@ -12,11 +13,18 @@ import {ActivatedRoute} from '@angular/router';
 export class InterventoComponent implements OnInit {
 
   intervento: InterventoTipo;
+  ricambi: RicambioTipo[];
+  displayedColumns = ['seqNo', 'Pezzo', 'Descrizione', 'Valore']
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute,
+    private interventiService: InterventiService) { }
 
   ngOnInit(): void {
     this.intervento =  this.route.snapshot.data['intervento'];
+
+    this.interventiService.findRicambi(this.intervento.id).subscribe(
+      ricambi => this.ricambi = ricambi
+    );
   }
 
 }

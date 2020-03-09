@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { InterventoTipo } from '../models/models';
+import { InterventoTipo, RicambioTipo } from '../models/models';
 import { map } from 'rxjs/operators';
 import { first } from 'rxjs/operators';
 
@@ -60,4 +60,26 @@ export class InterventiService {
       )
     
   }
+
+
+  findRicambi(interventoID: string, pageNumber = 0, pageSize = 3) : Observable<RicambioTipo[]>{
+    return this.db.collection(`db-interventi/${interventoID}/ricambi`,
+                ref => ref.orderBy('seqNo', 'asc')
+                .limit(pageSize)
+                .startAfter(pageNumber *pageSize)
+                )
+      .snapshotChanges()
+      .pipe(map(snaps=>{
+        return snaps.map(snap =>{
+        return <RicambioTipo>{
+          id: snap.payload.doc.id,
+          ...snap.payload.doc.data() as RicambioTipo
+          }
+        });
+      }),
+      first()
+      )
+  }
+
+
 }
