@@ -1,4 +1,4 @@
-<div style="text-align: center;">
+<div style="text-align: center; margin: auto">
     <h1 class="titolo">Data Intervento: {{intervento?.DataIntervento.toDate() | date: 'dd/MM/yyyy'}}</h1>
     <div>
         Operatore: {{intervento.Operatore}}<br>
@@ -8,52 +8,48 @@
 
     <img class="imgIntervento mat-elevation-z8" [src]="intervento.MacchinaImg">
 
-<h1 class="titolo" >Elenco Ricambi</h1>
-<mat-table class="ricambi-table mat-elevation-z8" [dataSource]="ricambi">
+    <h1 class="titolo" >Elenco Ricambi</h1>
 
-    <ng-container matColumnDef="seqNo" >
+    <div class="spinner-container" *ngIf="loading">
+       <mat-spinner></mat-spinner>
+    </div>
 
-        <mat-header-cell *matHeaderCellDef>Codice</mat-header-cell>
+    <mat-table class="ricambi-table mat-elevation-z8" [dataSource]="ricambi">
+        <ng-container matColumnDef="seqNo" >
+            <mat-header-cell *matHeaderCellDef>Codice</mat-header-cell>
+            <mat-cell *matCellDef="let ricambio">{{ricambio.seqNo}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Pezzo" >
+            <mat-header-cell *matHeaderCellDef>Pezzo</mat-header-cell>
+            <mat-cell class="pezzo-cell" *matCellDef="let ricambio">
+                {{ricambio.Pezzo}}
+            </mat-cell>
+        </ng-container>
 
-        <mat-cell *matCellDef="let ricambio">{{ricambio.seqNo}}</mat-cell>
+        <ng-container matColumnDef="Descrizione" >
+            <mat-header-cell *matHeaderCellDef>Descrizione</mat-header-cell>
+            <mat-cell class="descrizione-cell" *matCellDef="let ricambio">
+                {{ricambio.Descrizione}}
+            </mat-cell>
+        </ng-container>
 
-    </ng-container>
+        <ng-container matColumnDef="Valore" >
+            <mat-header-cell *matHeaderCellDef >Prezzo €</mat-header-cell>
+            <mat-cell class="valore-cell" *matCellDef="let ricambio">
+                {{ricambio.Valore}}
+            </mat-cell>
+        </ng-container>
 
-    <ng-container matColumnDef="Pezzo" >
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 
-        <mat-header-cell *matHeaderCellDef>Pezzo</mat-header-cell>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 
-        <mat-cell class="pezzo-cell"
-                  *matCellDef="let ricambio">{{ricambio.Pezzo}}</mat-cell>
+    </mat-table>
 
-    </ng-container>
-
-    <ng-container matColumnDef="Descrizione" >
-
-        <mat-header-cell *matHeaderCellDef>Descrizione</mat-header-cell>
-
-        <mat-cell class="descrizione-cell"
-                  *matCellDef="let ricambio">{{ricambio.Descrizione}}</mat-cell>
-
-    </ng-container>
-
-    <ng-container matColumnDef="Valore" >
-
-        <mat-header-cell *matHeaderCellDef >Prezzo €</mat-header-cell>
-
-        <mat-cell class="valore-cell"
-                  *matCellDef="let ricambio">{{ricambio.Valore}}</mat-cell>
-
-    </ng-container>
-
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-
-    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-
-</mat-table>
-
-<br>
-<button class="bottom-toolbar" mat-raised-button color="primary" (click)="loadMore()">...altri ricambi</button>
+    <br>
+    <button class="bottom-toolbar" mat-raised-button color="primary" (click)="loadMore()">
+        ...altri ricambi
+    </button>
 
 
 </div>

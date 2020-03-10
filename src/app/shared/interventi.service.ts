@@ -66,7 +66,7 @@ export class InterventiService {
     //console.log(pageNumber)
     return this.db.collection(`db-interventi/${interventoID}/ricambi`,
                 ref => ref.orderBy('seqNo')
-                .startAfter(pageNumber * pageSize)
+                .startAfter(pageNumber * pageSize) //non funziona bene: anche 
                 .limit(pageSize)
                 )
       .snapshotChanges()

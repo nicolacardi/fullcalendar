@@ -30,6 +30,7 @@ import { MatSortModule} from '@angular/material/sort'
 import { MatToolbarModule} from '@angular/material/toolbar'
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 
@@ -88,6 +89,7 @@ import { InterventoResolver } from "./shared/intervento.resolver";
     MatToolbarModule,
     MatTabsModule,
     MatCardModule,
+    MatProgressSpinnerModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     ReactiveFormsModule
