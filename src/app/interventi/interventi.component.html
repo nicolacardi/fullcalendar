@@ -2,6 +2,7 @@
 
     <mat-card-header>
         <mat-card-title>Data: {{intervento.DataIntervento.toDate() | date: 'dd/MM/yyyy'}}</mat-card-title>
+        
     </mat-card-header>
     
     <!-- <div>
@@ -35,7 +36,11 @@
 </div> -->
 
 <mat-card-actions style="text-align: center;">
+    <p>ANDREA</p>
+    {{intervento.NIntervento}}
 
+    {{intervento.Tipo}}
+    <p>--------------- ANDREA ----------------</p>
     <button mat-button class="mat-raised-button mat-primary" [routerLink]="['/assistenza', intervento.NIntervento]">
         MOSTRA
     </button>

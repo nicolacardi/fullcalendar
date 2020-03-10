@@ -1,10 +1,10 @@
 
-<mat-sidenav-container>
+<mat-sidenav-container fullscreen>
   <mat-sidenav #sidenav mode="over">
     <mat-nav-list>
       <mat-list>
         <mat-list-item (click)="sidenav.close()" [routerLink]="['/calendario']">
-            <mat-icon matListIcon>subdirectory_arrow_right</mat-icon>
+            <mat-icon matListIcon>calendar_today</mat-icon>
             <h3 matLine>CALENDARIO</h3>
         </mat-list-item>
         <mat-list-item (click)="sidenav.close()" [routerLink]="['/anguniv']">
@@ -16,20 +16,46 @@
           <h3 matLine>ANGUNIV2</h3>
         </mat-list-item>
         <mat-list-item (click)="sidenav.close()" [routerLink]="['/assistenza']">
-          <mat-icon matListIcon>subdirectory_arrow_right</mat-icon>
+          <mat-icon matListIcon>build</mat-icon>
           <h3 matLine>ASSISTENZA</h3>
         </mat-list-item>
         <mat-list-item (click)="sidenav.close()" [routerLink]="['/anagrafica clienti']">
-          <mat-icon matListIcon>subdirectory_arrow_right</mat-icon>
+          <mat-icon matListIcon>people_alt</mat-icon>
           <h3 matLine>ANAGRAFICA CLIENTI</h3>
         </mat-list-item>
-
+        <mat-list-item (click)="sidenav.close()" [routerLink]="['/login']">
+          <mat-icon matListIcon>library_add_check</mat-icon>
+          <h3 matLine>Login</h3>
+        </mat-list-item>
+        <mat-list-item (click)="sidenav.close()" [routerLink]="['/logout']">
+          <mat-icon matListIcon>exit_to_app</mat-icon>
+          <h3 matLine>Logout</h3>
+        </mat-list-item>
       </mat-list>
     </mat-nav-list>
   </mat-sidenav>
-  <mat-icon color="black" (click)="sidenav.open()" style="cursor: pointer;">menu_open</mat-icon>
-<div class="container">
   
-  <router-outlet></router-outlet>
-</div>
+  <mat-toolbar color="primary">
+    <div class="toolbar-tools">
+      <mat-icon color="black" (click)="sidenav.open()" style="cursor: pointer;">menu_open</mat-icon>
+<!--
 
+-
+        <button mat-icon-button (click)="start.open('mouse')">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <div class="filler"></div>
+        <ng-container *ngIf="(pictureUrl$ | async) as pictureUrl">
+            <img class="user-avatar" [src]="pictureUrl" >
+        </ng-container>
+      -->
+    </div>
+</mat-toolbar>
+
+
+
+  <!--<div class="container">  -->
+  <router-outlet></router-outlet>
+  <!-- </div> -->
+
+</mat-sidenav-container>

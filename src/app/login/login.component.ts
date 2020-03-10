@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
         console.log("Firebase UI result:", result);
 
-        this.ngZone.run(() => this.router.navigateByUrl('/courses'));
+        this.ngZone.run(() => this.router.navigateByUrl('/assistenza'));
 
     }
 }

@@ -45,11 +45,15 @@ import { NgUnivComponent } from './ng-univ/ng-univ.component';
 import { NgUniv2Component } from './ng-univ2/ng-univ2.component';
 import { InterventiComponent } from './interventi/interventi.component';
 import { InterventoComponent } from './intervento/intervento.component';
-
 import { InterventoResolver } from "./shared/intervento.resolver";
+
+import { LoginComponent } from './login/login.component';
+import { AngularFireAuth } from '@angular/fire/auth';
+
 
 @NgModule({
   declarations: [
+    LoginComponent,     //AS
     AppComponent,
     DialogEvent,
     CalendarComponent,
@@ -97,7 +101,8 @@ import { InterventoResolver } from "./shared/intervento.resolver";
   providers: [ 
     {provide: MAT_DATE_LOCALE, useValue: 'it-IT'},
     ClienteService,
-    InterventoResolver
+    InterventoResolver,
+    AngularFireAuth
 ],
   bootstrap: [AppComponent],
   entryComponents: [
