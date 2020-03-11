@@ -36,13 +36,17 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
+        //AS: pulisce i parametri di login
         this.ui.delete();
     }
 
     onLoginSuccessful(result) {
 
-        console.log("Firebase UI result:", result);
-
+        //console.log("AS-DEBUG: Firebase UI result:", result);
+        
+        //AS: problema refresh della pagina: con l'istruzione commentata non viene forzato il refresh della pagina
+        //cosa che viene fatta invece con la seconda istruzione (vedi problema progetto iQApp)
+        //this.router.navigateByUrl('/assistenza');
         this.ngZone.run(() => this.router.navigateByUrl('/assistenza'));
 
     }
