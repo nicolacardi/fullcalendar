@@ -13,6 +13,8 @@ export class AppComponent implements OnInit {
   //AS: il dollaro indica che la variabile è un observable
 isLoggedIn$: Observable<boolean>;
 isLoggedOut$: Observable<boolean>;
+pictureUrl$: Observable<string>;
+UserName$: Observable<string>;
 
   constructor(private afAuth: AngularFireAuth) { }
 
@@ -24,6 +26,10 @@ isLoggedOut$: Observable<boolean>;
     //AS: user => !!user  significa:  se user è diverso da null (utente loggato) viene restituito all'observable true, altrimenti false
     this.isLoggedIn$ = this.afAuth.authState.pipe(map(user => !!user));
     this.isLoggedOut$ = this.isLoggedIn$.pipe(map(loggedIn => !loggedIn ));
+    this.pictureUrl$ = this.afAuth.authState.pipe(map(user => user ?  user.photoURL: null));
+    
+    this.UserName$ = this.afAuth.authState.pipe(map(user => user ?  user.displayName: null));
+      
   }
 
   logout(){
