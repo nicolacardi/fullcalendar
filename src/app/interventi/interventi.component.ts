@@ -21,12 +21,11 @@ export class InterventiComponent implements OnInit {
 
   editIntervento(intervento: InterventoTipo){
     const dialogConfig = new MatDialogConfig();
+    //ecco qui di seguito cosa passo alla Dialog: due impostazioni e dei dati
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.data = intervento;
     this.dialog.open(InterventoDialogComponent, dialogConfig)
-
-
   }
 
 }

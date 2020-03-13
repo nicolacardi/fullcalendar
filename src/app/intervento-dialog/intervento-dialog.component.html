@@ -1,39 +1,60 @@
 
-<h2 mat-dialog-title>ciao</h2>
+<!-- <h2 mat-dialog-title>{{dataIntervento}}</h2> -->
 
 
-<mat-dialog-content >
+<mat-dialog-content [formGroup] = "form">
 
-    <mat-form-field>
+    <!-- <mat-form-field>
+        <input matInput placeholder="data Intervento" formControlName="dataIntervento">
+    </mat-form-field> -->
+    <br>
+    <mat-form-field >
+        <mat-label>Intervento # {{nInt.value}}</mat-label>
+        <input matInput formControlName="nIntervento" #nInt hidden>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="outline" [style.width.px]=180>
+        <mat-label>Data Intervento</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="dataIntervento" required>
+        <mat-datepicker-toggle matSuffix [for]="picker" style="outline: none"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <br>
 
-        <input matInput
-                placeholder="Course Description"
-               formControlName="description">
-
+    <mat-form-field appearance="outline" [style.width.px]=180>
+        <mat-label>Operatore</mat-label>
+        <select matNativeControl formControlName="operatore">
+            <!-- <option value="-" [selected]="data.allDay">-</option> -->
+            <option *ngFor="let operator of operators" [value]="operator" >{{operator}}</option>
+        </select>
     </mat-form-field>
 
+<!-- 
     <mat-form-field>
-
-        <textarea matInput placeholder="Description"
-            formControlName="longDescription">
-
-        </textarea>
-
+        <input matInput placeholder="Operatore" formControlName="operatore">
+    </mat-form-field> -->
+    <br>
+    <mat-form-field>
+        <input matInput placeholder="Modello Macchina" formControlName="modello">
     </mat-form-field>
-
+    <br>
+    <mat-form-field appearance="outline" [style.width.px]=180>
+        <mat-label>Tipo Intervento</mat-label>
+        <select matNativeControl formControlName="tipo">
+            <option *ngFor="let tipo of tipiArray" [value]="tipo" >{{tipo}}</option>
+        </select>
+    </mat-form-field>
 
 </mat-dialog-content>
 
 <mat-dialog-actions>
 
-    <button class="mat-raised-button"
-            >
-        Close
+    <button class="mat-raised-button" (click)="close()">
+        Annulla
     </button>
 
-    <button class="mat-raised-button mat-primary"
-            >
-        Save
+    <button class="mat-raised-button mat-primary">
+        Salva
     </button>
 
 </mat-dialog-actions>

@@ -36,6 +36,7 @@ export interface InterventoTipo {
   MacchinaImg: string,
   OperatoreImg: string,
   Modello: string
+  NIntervento: string;
 }
 
 export interface RicambioTipo {
