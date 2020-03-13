@@ -23,19 +23,8 @@
           <mat-icon matListIcon>people_alt</mat-icon>
           <h3 matLine>ANAGRAFICA CLIENTI</h3>
         </mat-list-item>
-<<<<<<< HEAD
         <mat-list-item (click)="sidenav.close()" [routerLink]="['/login']">
           <mat-icon matListIcon>fingerprint</mat-icon>
-=======
-
-        <mat-list-item *ngIf="isLoggedOut$ | async" (click)="sidenav.close()" [routerLink]="['/login']">
-          <mat-icon matListIcon>library_add_check</mat-icon>
-          <h3 matLine>Register</h3>
-        </mat-list-item>
-
-        <mat-list-item *ngIf="isLoggedOut$ | async" (click)="sidenav.close()" [routerLink]="['/login']">
-          <mat-icon matListIcon>library_add_check</mat-icon>
->>>>>>> 629d6bb649a8d3c77fbef6c5ea7cbd3c34059847
           <h3 matLine>Login</h3>
         </mat-list-item>
         <mat-list-item *ngIf="isLoggedIn$ | async" (click)="logout()">
