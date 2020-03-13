@@ -19,15 +19,26 @@
           <mat-icon matListIcon>build</mat-icon>
           <h3 matLine>ASSISTENZA</h3>
         </mat-list-item>
-        <mat-list-item (click)="sidenav.close()" [routerLink]="['/anagrafica clienti']">
+        <mat-list-item *ngIf="isLoggedOut$ | async" (click)="sidenav.close()" [routerLink]="['/anagrafica clienti']">
           <mat-icon matListIcon>people_alt</mat-icon>
           <h3 matLine>ANAGRAFICA CLIENTI</h3>
         </mat-list-item>
+<<<<<<< HEAD
         <mat-list-item (click)="sidenav.close()" [routerLink]="['/login']">
           <mat-icon matListIcon>fingerprint</mat-icon>
+=======
+
+        <mat-list-item *ngIf="isLoggedOut$ | async" (click)="sidenav.close()" [routerLink]="['/login']">
+          <mat-icon matListIcon>library_add_check</mat-icon>
+          <h3 matLine>Register</h3>
+        </mat-list-item>
+
+        <mat-list-item *ngIf="isLoggedOut$ | async" (click)="sidenav.close()" [routerLink]="['/login']">
+          <mat-icon matListIcon>library_add_check</mat-icon>
+>>>>>>> 629d6bb649a8d3c77fbef6c5ea7cbd3c34059847
           <h3 matLine>Login</h3>
         </mat-list-item>
-        <mat-list-item (click)="sidenav.close()" [routerLink]="['/logout']">
+        <mat-list-item *ngIf="isLoggedIn$ | async" (click)="logout()">
           <mat-icon matListIcon>exit_to_app</mat-icon>
           <h3 matLine>Logout</h3>
         </mat-list-item>
@@ -37,10 +48,20 @@
   
   <mat-toolbar color="primary">
     <div class="toolbar-tools">
-      <mat-icon color="black" (click)="sidenav.open()" style="cursor: pointer;">menu_open</mat-icon>
-<!--
+      <button mat-icon-button (click)="sidenav.open()">
+        <mat-icon>menu</mat-icon>
+      </button>
 
--
+      <div class="filler"></div>
+      
+      <ng-container  *ngIf="(pictureUrl$ | async) as pictureUrl">
+        <p class="HeaderText">{{UserName$ | async}} </p>
+        <img class="user-avatar" [src]="pictureUrl">
+      </ng-container>
+      
+      <!--
+      <mat-icon color="black" (click)="sidenav.open()" style="cursor: pointer;">menu_open</mat-icon>
+
         <button mat-icon-button (click)="start.open('mouse')">
             <mat-icon>menu</mat-icon>
         </button>
@@ -50,7 +71,7 @@
         </ng-container>
       -->
     </div>
-</mat-toolbar>
+  </mat-toolbar>
 
 
 

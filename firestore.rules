@@ -1,0 +1,61 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+
+//resource.data.[nome_campo] --> valore precedente del campo
+//request.data.[nome_campo] --> nuovo valore prima dell'aggiornamento
+
+		function isAuthenticated(){
+    	return request.auth.uid != null;
+    
+    }
+    //verifica se l'utente è registrato sulla tabella users, ed è autenticato
+    function isRegistered(){
+    	return isAuthenticated() && 
+      	exists(/databases/$(database)/documents/users/$(request.auth.uid));
+    }
+    //verifica se l'utente è amministratore
+    function isAdmin(){
+    	return isAuthenticated() && 
+      	get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isAdmin == true;
+    }
+    
+    function isNonEmptyString(fieldName){
+    	return request.resource.data[fieldName] is string &&
+      	    request.resource.data[fieldName].size() > 0;            
+    }
+    
+    function isValidCourse(){
+    	return request.resource.data.Seq is number 
+      		&& request.resource.data.Seq > 0 
+          && isNonEmptyString("url");
+    
+    }
+    
+    // This rule allows anyone on the internet to view, edit, and delete
+    // all data in your Firestore database. It is useful for getting
+    // started, but it is configured to expire after 30 days because it
+    // leaves your app open to attackers. At that time, all client
+    // requests to your Firestore database will be denied.
+    //
+    // Make sure to write security rules for your app before that time, or else
+    // your app will lose access to your Firestore database
+    
+    //AS: con la sintassi seguente si intendono TUTTI i documenti compresi nel path padre
+    
+    //match /{document=**} {
+    //  allow read;
+    //  allow update: if request.time < timestamp.date(2020, 3, 26);
+    //}
+   
+	  //Possibili attributi: get, list, update, create. write, delete    
+ 
+ 		//
+    match /{document=**} {
+    //match /db-interventi/{interventoId} {
+      allow read: if isRegistered();
+      allow write:if isAdmin();
+    }
+  }
+}
