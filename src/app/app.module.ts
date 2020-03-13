@@ -49,6 +49,7 @@ import { InterventoResolver } from "./shared/intervento.resolver";
 
 import { LoginComponent } from './login/login.component';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { InterventoDialogComponent } from './intervento-dialog/intervento-dialog.component';
 
 
 @NgModule({
@@ -66,6 +67,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
     NgUniv2Component,
     InterventiComponent,
     InterventoComponent,
+    InterventoDialogComponent,
   ],
   imports: [
     BrowserModule,
