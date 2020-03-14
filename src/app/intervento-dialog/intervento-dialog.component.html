@@ -36,6 +36,10 @@
         <input matInput placeholder="Modello Macchina" formControlName="Modello">
     </mat-form-field>
     <br>
+    <div>
+        <mat-checkbox formControlName="Risolutivo">Intervento Risolutivo</mat-checkbox>
+    </div>
+    <br>
     <mat-form-field appearance="outline" [style.width.px]=180>
         <mat-label>Tipo Intervento</mat-label>
         <select matNativeControl formControlName="Tipo">
@@ -45,16 +49,17 @@
 
 </mat-dialog-content>
 
-<mat-dialog-actions>
+<mat-dialog-actions style="text-align: center !important; margin-bottom: 10px;">
 
-    <button class="mat-raised-button" (click)="close()">
-        Annulla
+    <!-- <button class="mat-raised-button mat-primary dialog-button" (click)="close()">
+        annulla
     </button>
 
-    <button class="mat-raised-button mat-primary" (click)="save()">
-        Salva
-    </button>
-
+    <button class="mat-raised-button mat-primary dialog-button" (click)="save()">
+        salva
+    </button> -->
+    <button mat-stroked-button class="dialog-button" (click)="close()"><mat-icon color="warn" >clear</mat-icon>Annulla</button>
+    <button mat-stroked-button class="dialog-button" (click)="save()" ><mat-icon color="primary" >done</mat-icon>OK</button>
 </mat-dialog-actions>
 
 

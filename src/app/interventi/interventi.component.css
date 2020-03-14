@@ -2,8 +2,12 @@
 
 .intervento-card {
     width: 40%;
+    margin: auto;
 }
 
+.mat-card-title{
+    font-size: 17px !important;
+}
 @media screen and (max-width: 1200px) {
     .intervento-card {
         width: 60%
@@ -40,6 +44,7 @@
 .mat-card-avatar img {
     border-radius: 50px;
     width: 50px;
+
     /* position: absolute;
     right:40px;
     top: 30px; */
@@ -58,9 +63,21 @@
 }
 
 .operatore{
-    margin-top: -35px;
+    margin-top: -20px;
 }
 
 .mini {
     font-size: 11px;
+    text-align: right;
+}
+
+.titoletto {
+    font-size: 13px;
+    width: 100px !important; 
+    text-align: right !important;
+
+}
+
+.titolo {
+    font-size: 18px;
 }

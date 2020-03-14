@@ -31,6 +31,9 @@ import { MatToolbarModule} from '@angular/material/toolbar'
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDividerModule } from '@angular/material/divider';
+
+
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 
@@ -96,6 +99,7 @@ import { InterventoDialogComponent } from './intervento-dialog/intervento-dialog
     MatTabsModule,
     MatCardModule,
     MatProgressSpinnerModule,
+    MatDividerModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     ReactiveFormsModule
