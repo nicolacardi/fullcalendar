@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import { InterventoTipo, RicambioTipo } from '../models/models';
 import { map } from 'rxjs/operators';
 import { first } from 'rxjs/operators';
@@ -11,6 +11,21 @@ import { first } from 'rxjs/operators';
 export class InterventiService {
 
   constructor(private db: AngularFirestore) { 
+  }
+
+  saveIntervento(interventoID: string, changes: Partial<InterventoTipo>) : Observable<any> {
+    //il Partial è necessario se desideriamo passare anche una parte dei campi e non tutti
+    //non compila nemmeno se dove chiamiamo la funzione passiamo solo alcuni campi
+    console.log (changes);
+    return from (this.db.doc(`db-interventi/${interventoID}`).update(changes));
+    //il metodo update restituisce una promise come normalmente nell'sdk
+    //bisogna convertire la promise in un Observable: si usa il metodo from di rxjs
+    //e' molto simile all'angular http observable
+
+    //this.db.doc(`db-interventi/${interventoID}`).ha vari metodi (esplorare)
+    //scegliamo update e non set. Set se non c'è il record lo crea, mentre update non lo fa
+
+
   }
 
   LoadAllInterventi(): Observable <InterventoTipo[]> {
@@ -81,6 +96,9 @@ export class InterventiService {
       first()
       )
   }
+
+
+
 
 
 }
