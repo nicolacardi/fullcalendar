@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "build:prod": "./node_modules/.bin/ts-node ./init-db.ts",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

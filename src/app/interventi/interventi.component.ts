@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { InterventoTipo } from '../models/models';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { InterventoDialogComponent } from '../intervento-dialog/intervento-dialog.component';
+import { Timestamp } from 'rxjs';
 
 @Component({
   selector: 'app-interventi',
@@ -17,6 +18,9 @@ export class InterventiComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+//  new Date(0).setUTCSeconds(YOURFIREBASEDOC.updatedAt['seconds'])
+
   }
 
   editIntervento(intervento: InterventoTipo){

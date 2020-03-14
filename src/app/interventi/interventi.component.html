@@ -1,6 +1,13 @@
 <mat-card *ngFor="let intervento of interventi" class="intervento-card mat-elevation-z2">
 
     <mat-card-header>
+        
+        <!--
+            <p>DEBUG: </p>
+        {{intervento.DataIntervento }}
+        {{ intervento.DataIntervento.seconds * 1000 | date:'dd/MM/yyyy' }}
+        -->
+
         <mat-card-title>Data: {{intervento.DataIntervento.toDate() | date: 'dd/MM/yyyy'}}</mat-card-title>
         
     </mat-card-header>

@@ -1,3 +1,5 @@
+import { Timestamp } from 'rxjs';
+
 //creo un tipo di dato EventType
 export interface EventType {
     allDay: boolean,
