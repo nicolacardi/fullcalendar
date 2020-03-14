@@ -15,8 +15,8 @@ export class InterventiService {
 
   saveIntervento(interventoID: string, changes: Partial<InterventoTipo>) : Observable<any> {
     //il Partial è necessario se desideriamo passare anche una parte dei campi e non tutti
+    console.log(changes);
     //non compila nemmeno se dove chiamiamo la funzione passiamo solo alcuni campi
-    console.log (changes);
     return from (this.db.doc(`db-interventi/${interventoID}`).update(changes));
     //il metodo update restituisce una promise come normalmente nell'sdk
     //bisogna convertire la promise in un Observable: si usa il metodo from di rxjs
@@ -24,7 +24,6 @@ export class InterventiService {
 
     //this.db.doc(`db-interventi/${interventoID}`).ha vari metodi (esplorare)
     //scegliamo update e non set. Set se non c'è il record lo crea, mentre update non lo fa
-
 
   }
 
