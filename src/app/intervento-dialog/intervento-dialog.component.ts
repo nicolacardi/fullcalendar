@@ -18,7 +18,8 @@ export class InterventoDialogComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<InterventoDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) intervento: InterventoTipo, private interventiService: InterventiService) {
+    @Inject(MAT_DIALOG_DATA) intervento: InterventoTipo
+    , private interventiService: InterventiService) {
       
       this.intervento = intervento; //assegno anche alla variabile intervento quello che sto passando alla dialog
 
