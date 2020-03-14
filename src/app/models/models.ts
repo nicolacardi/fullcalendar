@@ -31,6 +31,7 @@ export interface ClienteTipo {
 export interface InterventoTipo {
   id: string,
   DataIntervento: Date,
+  dtIntervento: string,
   Operatore: string,
   Risolutivo: boolean,
   Tipo: string,
