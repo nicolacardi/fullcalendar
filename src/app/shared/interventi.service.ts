@@ -15,6 +15,7 @@ export class InterventiService {
 
   saveIntervento(interventoID: string, changes: Partial<InterventoTipo>) : Observable<any> {
     //il Partial è necessario se desideriamo passare anche una parte dei campi e non tutti
+    console.log("Service saveIntervento");
     console.log(changes);
     //non compila nemmeno se dove chiamiamo la funzione passiamo solo alcuni campi
     return from (this.db.doc(`db-interventi/${interventoID}`).update(changes));
@@ -30,7 +31,7 @@ export class InterventiService {
   LoadAllInterventi(): Observable <InterventoTipo[]> {
     return this.db.collection('db-interventi', 
     //ref=>ref
-    ref=>ref.orderBy('DataIntervento')
+    ref=>ref.orderBy('dtIntervento')
     //.where('Operatore', '==', 'Nicola Cardi')
     //.where('Risolutivo', '==', true)
     //se c'è un campo array e voglio estrarre gli array

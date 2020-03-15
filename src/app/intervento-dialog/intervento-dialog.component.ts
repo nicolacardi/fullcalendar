@@ -23,12 +23,12 @@ export class InterventoDialogComponent implements OnInit {
       private interventiService: InterventiService) {
       
       this.intervento = intervento; //assegno anche alla variabile intervento quello che sto passando alla dialog
-        console.log (this.intervento);
+        //console.log (this.intervento);
       this.form = fb.group ({
         NIntervento : {value: intervento.NIntervento, disabled: true} ,
         Modello: intervento.Modello,
         Operatore: intervento.Operatore,
-        DataIntervento: intervento.DataIntervento,
+        //DataIntervento: intervento.DataIntervento,
         dtIntervento: intervento.dtIntervento,
         Risolutivo: intervento.Risolutivo,
         ValoreRicambi: intervento.ValoreRicambi,
@@ -45,7 +45,7 @@ export class InterventoDialogComponent implements OnInit {
 
   save(){
     const changes = this.form.value;
-
+    //console.log(changes)
     this.interventiService.saveIntervento(this.intervento.id, changes)
       .subscribe(
         () => this.dialogRef.close(this.form.value)

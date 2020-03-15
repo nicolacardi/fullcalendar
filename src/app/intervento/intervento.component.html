@@ -1,5 +1,7 @@
 <div style="text-align: center; margin: auto">
-    <h1 class="titolo">Data Intervento: {{intervento?.DataIntervento.toDate() | date: 'dd/MM/yyyy'}}</h1>
+    <!-- <h1 class="titolo">Data Intervento: {{intervento?.DataIntervento.toDate() | date: 'dd/MM/yyyy'}}</h1> -->
+    <h1 class="titolo">Data Intervento: {{intervento?.dtIntervento}}</h1>
+
     <div>
         Operatore: {{intervento.Operatore}}<br>
         Tipo di Intervento: {{intervento.Tipo}}<br>

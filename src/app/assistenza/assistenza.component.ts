@@ -64,14 +64,14 @@ export class AssistenzaComponent implements OnInit{
         map(interventi => interventi.filter(
           intervento => intervento.Tipo.includes('Meccanico')))
       )
-      console.log("Interventi Meccanici");
-      console.log (this.interventiMeccanici);
+      //console.log("Interventi Meccanici");
+      //console.log (this.interventiMeccanici);
       this.interventiElettrici = this.interventi$.pipe(
         map(interventi => interventi.filter(
           intervento => intervento.Tipo.includes('Elettrico')))
       )
-      console.log("Interventi Elettrici");
-      console.log (this.interventiElettrici);
+      //console.log("Interventi Elettrici");
+      //console.log (this.interventiElettrici);
 
   }
 
