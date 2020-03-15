@@ -25,16 +25,17 @@ UserName$: Observable<string>;
 
     //AS: user => !!user  significa:  se user è diverso da null (utente loggato) viene restituito all'observable true, altrimenti false
     this.isLoggedIn$ = this.afAuth.authState.pipe(map(user => !!user));
+    //console.log ("loggedin",this.isLoggedIn$);
     this.isLoggedOut$ = this.isLoggedIn$.pipe(map(loggedIn => !loggedIn ));
     this.pictureUrl$ = this.afAuth.authState.pipe(map(user => user ?  user.photoURL: null));
-    
     this.UserName$ = this.afAuth.authState.pipe(map(user => user ?  user.displayName: null));
-      
+    
   }
 
   logout(){
     console.log("AS: logout");
     this.afAuth.auth.signOut();
+    //this.router.navigate(['PublicPage']);
   }
 
 }

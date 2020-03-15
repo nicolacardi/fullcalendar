@@ -12,7 +12,7 @@
             </div>
             <div class="col-4">
                 <div class="row titolo">
-                    {{intervento.dtIntervento}}
+                    {{intervento.dtIntervento | date: 'dd/MM/yyyy' }}
                 </div>
                 <div class="row titolo">
                     {{intervento.NIntervento}}
@@ -65,7 +65,7 @@
 
 <mat-card-actions style="text-align: center;">
 
-    <button mat-button class="mat-raised-button mat-primary" [routerLink]="['/assistenza', intervento.NIntervento]">
+    <button  mat-button class="mat-raised-button mat-primary" [routerLink]="['/assistenza', intervento.NIntervento]">
         &nbsp;MOSTRA&nbsp;
     </button>
 

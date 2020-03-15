@@ -1,7 +1,8 @@
 
-<mat-sidenav-container fullscreen>
+
+<mat-sidenav-container fullscreen >
   <mat-sidenav #sidenav mode="over">
-    <mat-nav-list>
+    <mat-nav-list >
       <mat-list>
         <mat-list-item (click)="sidenav.close()" [routerLink]="['/calendario']">
             <mat-icon matListIcon>event</mat-icon>
@@ -15,6 +16,10 @@
           <mat-icon matListIcon>subdirectory_arrow_right</mat-icon>
           <h3 matLine>ANGUNIV2</h3>
         </mat-list-item>
+        <mat-list-item (click)="sidenav.close()" [routerLink]="['/batch']">
+          <mat-icon matListIcon>publish</mat-icon>
+          <h3 matLine>BATCH</h3>
+        </mat-list-item>
         <mat-list-item (click)="sidenav.close()" [routerLink]="['/assistenza']">
           <mat-icon matListIcon>build</mat-icon>
           <h3 matLine>ASSISTENZA</h3>
@@ -23,6 +28,7 @@
           <mat-icon matListIcon>people_alt</mat-icon>
           <h3 matLine>ANAGRAFICA CLIENTI</h3>
         </mat-list-item>
+<<<<<<< HEAD
         
         <mat-list-item *ngIf="isLoggedOut$ | async"  (click)="sidenav.close()" [routerLink]="['/login']">
           <mat-icon matListIcon>fingerprint</mat-icon>
@@ -30,12 +36,20 @@
         </mat-list-item>
 
         <mat-list-item *ngIf="isLoggedIn$ | async" (click)="logout()">
+=======
+        <mat-list-item (click)="sidenav.close()" *ngIf="isLoggedOut$ | async" [routerLink]="['/login']">
+          <mat-icon matListIcon>fingerprint</mat-icon>
+          <h3 matLine>Login</h3>
+        </mat-list-item>
+        <mat-list-item *ngIf="isLoggedIn$ | async" (click)="logout()" [routerLink]="['/login']" >
+>>>>>>> 66984fd92d54327719e68aa0918abfa98cd287d1
           <mat-icon matListIcon>exit_to_app</mat-icon>
           <h3 matLine>Logout</h3>
         </mat-list-item>
       </mat-list>
     </mat-nav-list>
   </mat-sidenav>
+
   
   <mat-toolbar color="primary">
     <div class="toolbar-tools">
@@ -69,5 +83,5 @@
   <!--<div class="container">  -->
   <router-outlet></router-outlet>
   <!-- </div> -->
-
+  <!-- <div *ngIf="isLoggedOut$ | async">Fai il login per avere accesso ai dati</div> -->
 </mat-sidenav-container>
