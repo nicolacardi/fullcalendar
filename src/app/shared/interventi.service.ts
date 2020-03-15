@@ -29,6 +29,28 @@ export class InterventiService {
   }
 
   LoadAllInterventi(): Observable <InterventoTipo[]> {
+    //---------------------------------------------------
+    //AS: chiamata standard a REST api:
+    //---------------------------------------------------
+    /*
+    //Nel Service:   (Importante: è uno "stateless observable based service", cioè non contiene dati nè definizione dell'oggetto)
+    //(l'istruzione map converte l'oggetto restituito dal servizio REST in un oggetto di tipo InterventoTipo)
+    loadAllInterventi(){
+      return this.http.get <InterventoTipo[]>("/api/interventi")
+        .pipe(
+          map(res => res["nome_oggetto_REST"] )
+        );
+    }
+    //Nel component (il simbolo $ sta a indicare che la variabile è un observable, non è obbligatorio):
+    objInterventi$: Observable<InterventoTipo[]>;
+    ngOnInit(){
+      this.objInterventi$ = this.interventiService.LoadAllInterventi();
+    }
+    //Nell'html: 
+    <mat-card *ngFor="let intervento of (objInterventi$ | async) ">
+    */
+    //---------------------------------------------------
+    
     return this.db.collection('db-interventi', 
     //ref=>ref
     ref=>ref.orderBy('dtIntervento')
