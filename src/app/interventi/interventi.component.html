@@ -1,5 +1,6 @@
 <mat-card *ngFor="let intervento of interventi" class="intervento-card mat-elevation-z2">
 
+<<<<<<< HEAD
     <mat-card-header>
         
         <!--
@@ -17,19 +18,59 @@
     </div> -->
 
     <mat-card-content>
+=======
+    <mat-card-content style="padding-left: 20px; padding-top: 20px;">
+>>>>>>> 96f1646203612075196b0669db221306f2daf1a1
         <div class="row">
-            <div class="col-6">
-                <span class="mini">Valore Ricambi: </span>{{intervento.ValoreRicambi}} euro<br>
-                <span class="mini">Modello Macchina: </span><br>{{intervento.Modello}}<br>
-                <span class="mini">Intervento Risolutivo: </span><mat-checkbox [checked]="intervento.Risolutivo"></mat-checkbox>
+            <div class="col-4">
+                <div class="row titoletto">
+                    Data:
+                </div>
+                <div class="row titoletto">
+                    Cod. Intervento: 
+                </div>
             </div>
-            <div class="col-3" >
+            <div class="col-4">
+                <div class="row titolo">
+                    {{intervento.dtIntervento}}
+                </div>
+                <div class="row titolo">
+                    {{intervento.NIntervento}}
+                </div>
             </div>
-            <div class="col-3" >
+            <div class="col-3 offset-1" >
                 <div mat-card-avatar>
                     <div class="operatoreName operatore">Operatore</div>
-                    <img class="mat-elevation-z8" style="border: grey 1px solid" [src]="intervento.OperatoreImg">
+                    <img class="" style="border: lightgrey 1px solid" [src]="intervento.OperatoreImg">
                     <div class="operatoreName" >{{intervento.Operatore}}</div>
+                </div>
+            </div>
+        </div>
+
+<br>
+    <mat-divider></mat-divider>
+
+        <div class="row">
+            <div class="col-4">
+                <div class="row mini">
+                    Valore Ricambi:
+                </div>
+                <div class="row mini">
+                    Modello Macchina:
+                </div>
+                <div class="row mini">
+                    Intervento Risolutivo:
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="row">
+                    {{intervento.ValoreRicambi}} euro
+                </div>
+                <div class="row">
+                    {{intervento.Modello}}
+                </div>
+                <div class="row">
+                    <mat-checkbox [checked]="intervento.Risolutivo" disabled></mat-checkbox>
                 </div>
             </div>
         </div>
@@ -43,10 +84,7 @@
 </div> -->
 
 <mat-card-actions style="text-align: center;">
-    <p>--------------- ANDREA ----------------</p>
-    {{intervento.NIntervento}}
-    {{intervento.Tipo}}
-    <p>--------------- ANDREA ----------------</p>
+
     <button mat-button class="mat-raised-button mat-primary" [routerLink]="['/assistenza', intervento.NIntervento]">
         &nbsp;MOSTRA&nbsp;
     </button>

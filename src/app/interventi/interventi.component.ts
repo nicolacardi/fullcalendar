@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { InterventoTipo } from '../models/models';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { InterventoDialogComponent } from '../intervento-dialog/intervento-dialog.component';
@@ -14,6 +14,9 @@ export class InterventiComponent implements OnInit {
   @Input()
   interventi: InterventoTipo[];
 
+  @Output()
+  interventoEdited = false;
+  ;
   constructor(private dialog: MatDialog) {
   }
 
@@ -30,6 +33,17 @@ export class InterventiComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.data = intervento;
     this.dialog.open(InterventoDialogComponent, dialogConfig)
+      // .afterClosed()
+      // //afterClosed restituisce  this.form.value infatti sulla dialog è scritto
+      // //() => this.dialogRef.close(this.form.value)
+      // .subscribe ( val => {
+      //   if (val) {
+      //     this.interventoEdited.emit();
+      //   }
+
+      // }
+      // )
+    ;
   }
 
 }
