@@ -35,7 +35,7 @@ UserName$: Observable<string>;
   logout(){
     console.log("AS: logout");
     this.afAuth.auth.signOut();
-    this.router.navigate(['PublicPage']);
+    //this.router.navigate(['PublicPage']);
   }
 
 }
