@@ -53,6 +53,7 @@ import { InterventoResolver } from "./shared/intervento.resolver";
 import { LoginComponent } from './login/login.component';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { InterventoDialogComponent } from './intervento-dialog/intervento-dialog.component';
+import { BatchComponent } from './batch/batch.component';
 
 
 @NgModule({
@@ -71,6 +72,7 @@ import { InterventoDialogComponent } from './intervento-dialog/intervento-dialog
     InterventiComponent,
     InterventoComponent,
     InterventoDialogComponent,
+    BatchComponent,
   ],
   imports: [
     BrowserModule,
@@ -101,6 +103,7 @@ import { InterventoDialogComponent } from './intervento-dialog/intervento-dialog
     MatProgressSpinnerModule,
     MatDividerModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
+    //AngularFirestoreModule.enablePersistence(),
     AngularFirestoreModule,
     ReactiveFormsModule
   ],

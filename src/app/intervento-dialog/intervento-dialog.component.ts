@@ -23,7 +23,8 @@ export class InterventoDialogComponent implements OnInit {
       private interventiService: InterventiService) {
       
       this.intervento = intervento; //assegno anche alla variabile intervento quello che sto passando alla dialog
-        //console.log (this.intervento);
+      console.log("ecco il formato che passa alla dialog")  
+      console.log (this.intervento);
       this.form = fb.group ({
         NIntervento : {value: intervento.NIntervento, disabled: true} ,
         Modello: intervento.Modello,
@@ -44,8 +45,20 @@ export class InterventoDialogComponent implements OnInit {
   }
 
   save(){
+
+    // this.form.setValue({dtIntervento: '2000-01-01'});
     const changes = this.form.value;
-    //console.log(changes)
+
+    let anno = new Date(this.form.value.dtIntervento).getFullYear();
+    let month = new Date(this.form.value.dtIntervento).getMonth() + 1 ;
+    let day = new Date(this.form.value.dtIntervento).getDate();
+    let Strmonth = month.toString();
+    let Strday = day.toString();
+    if(Strmonth.length < 2)  { Strmonth = "0" + Strmonth};
+    if(Strday.length < 2)  { Strday = "0" + Strday};
+    changes.dtIntervento = anno+'-'+Strmonth+'-'+Strday; //.toString();
+    console.log(changes);
+
     this.interventiService.saveIntervento(this.intervento.id, changes)
       .subscribe(
         () => this.dialogRef.close(this.form.value)

@@ -9,6 +9,7 @@ import { NgUniv2Component } from './ng-univ2/ng-univ2.component';
 import { InterventoComponent } from './intervento/intervento.component';
 import { InterventoResolver } from "./shared/intervento.resolver";
 import { LoginComponent } from './login/login.component';
+import { BatchComponent } from './batch/batch.component';
 
 
 const routes: Routes = [
@@ -19,7 +20,7 @@ const routes: Routes = [
   { path: 'anguniv', component: NgUnivComponent },
   { path: 'anguniv2', component: NgUniv2Component },
   { path: 'anagrafica clienti', component: AnagraficaClientiComponent },
-
+  { path: 'batch', component: BatchComponent },
   { path: 'assistenza', component: AssistenzaComponent },
   { path: 'assistenza/:NIntervento',
     component: InterventoComponent,
