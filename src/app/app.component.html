@@ -28,21 +28,11 @@
           <mat-icon matListIcon>people_alt</mat-icon>
           <h3 matLine>ANAGRAFICA CLIENTI</h3>
         </mat-list-item>
-<<<<<<< HEAD
-        
-        <mat-list-item *ngIf="isLoggedOut$ | async"  (click)="sidenav.close()" [routerLink]="['/login']">
-          <mat-icon matListIcon>fingerprint</mat-icon>
-          <h3 matLine>Login</h3>
-        </mat-list-item>
-
-        <mat-list-item *ngIf="isLoggedIn$ | async" (click)="logout()">
-=======
         <mat-list-item (click)="sidenav.close()" *ngIf="isLoggedOut$ | async" [routerLink]="['/login']">
           <mat-icon matListIcon>fingerprint</mat-icon>
           <h3 matLine>Login</h3>
         </mat-list-item>
         <mat-list-item *ngIf="isLoggedIn$ | async" (click)="logout()" [routerLink]="['/login']" >
->>>>>>> 66984fd92d54327719e68aa0918abfa98cd287d1
           <mat-icon matListIcon>exit_to_app</mat-icon>
           <h3 matLine>Logout</h3>
         </mat-list-item>
