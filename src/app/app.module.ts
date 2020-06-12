@@ -54,6 +54,7 @@ import { LoginComponent } from './login/login.component';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { InterventoDialogComponent } from './intervento-dialog/intervento-dialog.component';
 import { BatchComponent } from './batch/batch.component';
+import { ReactiveformComponent } from './reactiveform/reactiveform.component';
 
 
 @NgModule({
@@ -73,6 +74,7 @@ import { BatchComponent } from './batch/batch.component';
     InterventoComponent,
     InterventoDialogComponent,
     BatchComponent,
+    ReactiveformComponent,
   ],
   imports: [
     BrowserModule,

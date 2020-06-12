@@ -4,7 +4,7 @@
   <mat-sidenav #sidenav mode="over">
     <mat-nav-list >
       <mat-list>
-        <mat-list-item (click)="sidenav.close()" [routerLink]="['/calendario']">
+        <mat-list-item  (click)="sidenav.close()" [routerLink]="['/calendario']">
             <mat-icon matListIcon>event</mat-icon>
             <h3 matLine>CALENDARIO</h3>
         </mat-list-item>
@@ -32,7 +32,7 @@
           <mat-icon matListIcon>fingerprint</mat-icon>
           <h3 matLine>Login</h3>
         </mat-list-item>
-        <mat-list-item *ngIf="isLoggedIn$ | async" (click)="logout()" [routerLink]="['/login']" >
+        <mat-list-item *ngIf="isLoggedIn$ | async" (click)="sidenav.close(); logout()" [routerLink]="['/login']" >
           <mat-icon matListIcon>exit_to_app</mat-icon>
           <h3 matLine>Logout</h3>
         </mat-list-item>
@@ -40,10 +40,9 @@
     </mat-nav-list>
   </mat-sidenav>
 
-  
-  <mat-toolbar color="primary">
-    <div class="toolbar-tools">
-      <button mat-icon-button (click)="sidenav.open()">
+  <mat-toolbar color="primary" >
+    <div class="toolbar-tools" >
+      <button  *ngIf="isLoggedIn$ | async" mat-icon-button  (click)="sidenav.open()">
         <mat-icon>menu</mat-icon>
       </button>
 
